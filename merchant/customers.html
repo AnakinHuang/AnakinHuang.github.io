@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View/Edit Menu - Coco Garden Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ecf0f1;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 20px;
+            text-align: left;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #ecf0f1;
+            display: block;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #34495e;
+        }
+
+        /* Main dashboard content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+            background-color: #ecf0f1;
+            min-height: 100vh;
+        }
+
+        .main-content h1 {
+            margin-top: 0;
+            font-size: 28px;
+        }
+		
+		/* Customer Edit Form */
+        .form-section {
+            margin-top: 40px;
+            font-size: 16px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .form-section input, .form-section select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-section button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-section button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Customer Table Section */
+        .customer-table-section {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .scrollable {
+            max-height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #bdc3c7;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        /* Action buttons for editing and deleting customers */
+        .action-button {
+            padding: 5px 10px;
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            background-color: #d35400;
+        }
+
+        .delete-button {
+            background-color: #e74c3c;
+        }
+
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+
+        .logout-button {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 95%;
+            margin-top: 20px;
+			margin-left: 2.5%;
+			margin-bottom: 10%;
+        }
+
+        .logout-button:hover {
+            background-color: #c0392b;
+        }
+
+        .language-switch {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+			width: 87%;
+			margin-left: 2.5%;
+            border-radius: 5px;
+        }
+
+        .language-switch:hover {
+            background-color: #2980b9;
+        }
+
+        .save-button {
+            background-color: #2ecc71;
+        }
+
+        .save-button:hover {
+            background-color: #27ae60;
+        }
+
+        .add-customer-button {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-customer-button:hover {
+            background-color: #2980b9;
+        }
+
+        .search-bar {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 0px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+        }
+    </style>
+
+    <script>
+		function searchCustomer() {
+            const filter = document.getElementById('customerSearch').value.toLowerCase();
+            const rows = document.querySelectorAll("tbody tr");
+            rows.forEach(row => {
+                const nameCell = row.cells[0].querySelector('input').value.toLowerCase();
+                row.style.display = nameCell.includes(filter) ? '' : 'none';
+            });
+        }
+		
+        function toggleEdit(button, rowId) {
+            const row = document.getElementById(rowId);
+            const inputs = row.querySelectorAll('input, select');
+
+            if (button.innerText === "Edit") {
+                // Enable editing
+                inputs.forEach(input => input.removeAttribute('disabled'));
+                button.innerText = "Save Changes";
+                button.classList.add('save-button');
+            } else {
+                // Disable editing and save changes
+                inputs.forEach(input => input.setAttribute('disabled', true));
+                button.innerText = "Edit";
+                button.classList.remove('save-button');
+                alert('Changes saved successfully!');
+            }
+        }
+
+        function deleteRow(rowId) {
+            const row = document.getElementById(rowId);
+            row.remove();
+            alert('Customer removed!');
+        }
+		
+		function logout() {
+            window.location.href = '../index.html';
+        }
+		
+		function switchLanguage() {
+            const elements = document.querySelectorAll("[data-lang]");
+            elements.forEach(element => {
+                const enText = element.getAttribute("data-en");
+                const zhText = element.getAttribute("data-zh");
+                const currentLang = element.innerText;
+                element.innerText = currentLang === enText ? zhText : enText;
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div>
+            <h2>Coco Garden Manager</h2>
+            <ul>
+                <li><a href="./dashboard.html">Dashboard</a></li>
+                <li><a href="./messages.html">Messages <span id="message-count" style="color: red; font-weight: bold;">(2)</span></a></li>
+                <li><a href="./reservations.html">View/Edit Reservations</a></li>
+                <li><a href="./orders.html">View/Edit Orders</a></li>
+                <li><a href="./menu.html">View/Edit Menu</a></li>
+                <li><a href="./inventory.html">View/Edit Inventory</a></li>
+                <li><a href="./customers.html">View/Edit Customers</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <!-- Language Switcher -->
+            <div class="language-switch" onclick="switchLanguage()">Switch Language (切换语言)</div>
+            <!-- Logout Button -->
+            <button class="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <h1 id="customer-title" data-lang data-en="Customer Management" data-zh="客户管理">Customer Management</h1>
+		
+		<!-- Search Bar -->
+        <input type="text" id="customerSearch" class="search-bar" placeholder="Search by customer name..." onkeyup="searchCustomer()">
+
+        <!-- Menu Table Section -->
+        <div class="customer-table-section">
+            <h2 data-lang data-en="Customer List" data-zh="客户列表">Customer List</h2>
+            <div class="scrollable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-lang data-en="Customer Name" data-zh="客户姓名">Customer Name</th>
+                            <th data-lang data-en="Email" data-zh="电子邮件">Email</th>
+                            <th data-lang data-en="Phone" data-zh="电话">Phone</th>
+							<th data-lang data-en="Membership ID" data-zh="会员ID">Membership ID</th>
+                            <th data-lang data-en="Membership Balance" data-zh="会员余额">Membership Balance</th>
+                            <th data-lang data-en="Loyalty Points" data-zh="忠诚度积分">Loyalty Points</th>
+							<th data-lang data-en="Password" data-zh="密码">Password</th>
+                            <th data-lang data-en="Actions" data-zh="操作">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="row1">
+                            <td><input type="text" name="customer_name" value="Jane Doe" disabled></td>
+							<td><input type="email" name="email" value="jane.doe@email.com" disabled></td>
+                            <td><input type="tel" name="phone_number" value="555-1234" disabled></td>
+							<td><input type="number" name="membership_id" value="3" disabled></td>
+							<td><input type="number" name="membership_balance" value="120.00" disabled></td>
+                            <td><input type="number" name="loyalty_points" value="150" disabled></td>
+							<td><input type="text" name="password" value="wdefafweawf" disabled></td>
+                            <td>
+                                <button class="action-button" onclick="toggleEdit(this, 'row1')">Edit</button>
+                                <button class="action-button delete-button" onclick="deleteRow('row1')">Delete</button>
+                            </td>
+                        </tr>
+                        <tr id="row2">
+                            <td><input type="text" name="customer_name" value="John Smith" disabled></td>
+                            <td><input type="email" name="email" value="john.smith@email.com" disabled></td>
+                            <td><input type="tel" name="phone_number" value="555-5678" disabled></td>
+							<td><input type="number" name="membership_id" value="88" disabled></td>
+							<td><input type="number" name="membership_balance" value="999.00" disabled></td>
+                            <td><input type="number" name="loyalty_points" value="10000" disabled></td>
+							<td><input type="text" name="password" value="gfhtehdrg123." disabled></td>
+                            <td>
+                                <button class="action-button" onclick="toggleEdit(this, 'row1')">Edit</button>
+                                <button class="action-button delete-button" onclick="deleteRow('row1')">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add or Customer Form -->
+        <div class="form-section">
+            <h2 data-lang data-en="Add New Customer" data-zh="添加新顾客">Add New Customer</h2>
+            <form action="#">
+                <label for="customer_name" data-lang data-en="Customer Name:" data-zh="客户姓名：">Customer Name:</label>
+                <input type="text" id="customer_name" name="customer_name" required>
+				
+				<label for="email" data-lang data-en="Email:" data-zh="电子邮件：">Email:</label>
+                <td><input type="email" id="email" name="email" required></td>
+				
+				<label for="phone_number" data-lang data-en="Phone:" data-zh="电话：">Phone:</label>
+                <td><input type="tel" id="phone_number" name="phone_number" required></td>
+				
+				<label for="membership_id" data-lang data-en="Membership ID:" data-zh="会员ID：">Membership ID:</label>
+				<input type="number" id="membership_id" name="membership_id" required>
+				
+				<label for="membership_balance" data-lang data-en="Membership Balance:" data-zh="会员余额：">Membership Balance:</label>
+				<input type="number" id="membership_balance" name="membership_balance" required>
+				
+				<label for="loyalty_points" data-lang data-en="Loyalty Points:" data-zh="忠诚度积分：">Loyalty Points:</label>
+                <input type="number" id="loyalty_points" name="loyalty_points" required>
+				
+				<label for="password" data-lang data-en="Password:" data-zh="密码：">Password:</label>
+				<input type="text" id="password" name="password" required>
+
+                <button class="action-button" type="submit" data-lang data-en="Add New Customer" data-zh="添加新顾客">Add New Customer</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

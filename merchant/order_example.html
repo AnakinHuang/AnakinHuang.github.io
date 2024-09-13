@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Order - Coco Garden Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ecf0f1;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 20px;
+            text-align: left;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #ecf0f1;
+            display: block;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #34495e;
+        }
+
+        /* Main dashboard content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+            background-color: #ecf0f1;
+            min-height: 100vh;
+        }
+
+        .main-content h1 {
+            margin-top: 0;
+            font-size: 28px;
+        }
+
+        /* Order Edit Form */
+        .form-section {
+            margin-top: 20px;
+            font-size: 16px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .form-section input, .form-section select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-section .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .form-section .item-row input {
+            width: 50px;
+        }
+
+        .form-section .item-row select {
+            width: 70%;
+        }
+
+        .form-section-button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-section-button:hover {
+            background-color: #2980b9;
+        }
+
+        .add-item-button, .remove-item-button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+			margin-bottom: 15px;
+        }
+
+        .add-item-button:hover, .remove-item-button:hover {
+            background-color: #c0392b;
+        }
+
+        .logout-button {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 95%;
+            margin-top: 20px;
+			margin-left: 2.5%;
+			margin-bottom: 10%;
+        }
+
+        .logout-button:hover {
+            background-color: #c0392b;
+        }
+
+        .language-switch {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+			width: 87%;
+			margin-left: 2.5%;
+            border-radius: 5px;
+        }
+
+        .language-switch:hover {
+            background-color: #2980b9;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div>
+            <h2>Coco Garden Manager</h2>
+            <ul>
+                <li><a href="./dashboard.html">Dashboard</a></li>
+                <li><a href="./messages.html">Messages <span id="message-count" style="color: red; font-weight: bold;">(2)</span></a></li>
+                <li><a href="./reservations.html">View/Edit Reservations</a></li>
+                <li><a href="./orders.html">View/Edit Orders</a></li>
+                <li><a href="./menu.html">View/Edit Menu</a></li>
+                <li><a href="./inventory.html">View/Edit Inventory</a></li>
+                <li><a href="./customers.html">View/Edit Customers</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <!-- Language Switcher -->
+            <div class="language-switch" onclick="switchLanguage()">Switch Language (切换语言)</div>
+            <!-- Logout Button -->
+            <button class="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <h1 id="edit-order-title">Edit Order</h1>
+		<div>
+			<!-- Add/Remove Items Buttons -->
+			<button class="form-section-button" type="submit" onclick="saveOrder()">Save Changes</button>
+			<button class="add-item-button" onclick="addItem()">Add Item</button>
+            <button class="remove-item-button" onclick="removeItem()">Remove Item</button>
+			
+			<div>
+				<label for="status">Reservation Status:</label>
+                <select id="status">
+					<option value="placed" selected>Placed</option>
+					<option value="in_progress">In Progress</option>
+					<option value="completed">Completed</option>
+					<option value="cancelled">Cancelled</option>
+				</select>
+            </div>
+        </div>
+
+        <!-- Order Edit Form -->
+        <div class="form-section" id="order-items">
+            <div class="item-row" data-item-id="1">
+                <label for="item-1">Item 1:</label>
+                <select id="item-1" onchange="updatePrice(1)">
+                    <option value="Kung Pao Chicken" data-price="20.00" selected>Kung Pao Chicken - $20.00</option>
+                    <option value="Spring Rolls" data-price="3.00">Spring Rolls - $3.00</option>
+                    <option value="Fried Rice" data-price="10.00">Fried Rice - $10.00</option>
+                    <option value="Sweet and Sour Pork" data-price="15.00">Sweet and Sour Pork - $15.00</option>
+                </select>
+
+                <input type="number" id="quantity-1" value="2" min="1" onchange="updateTotal(1)">
+                <span id="price-1">$40.00</span>
+            </div>
+
+            <div class="item-row" data-item-id="2">
+                <label for="item-2">Item 2:</label>
+                <select id="item-2" onchange="updatePrice(2)">
+                    <option value="Kung Pao Chicken" data-price="20.00">Kung Pao Chicken - $20.00</option>
+                    <option value="Spring Rolls" data-price="3.00" selected>Spring Rolls - $3.00</option>
+                    <option value="Fried Rice" data-price="10.00">Fried Rice - $10.00</option>
+                    <option value="Sweet and Sour Pork" data-price="15.00">Sweet and Sour Pork - $15.00</option>
+                </select>
+
+                <input type="number" id="quantity-2" value="3" min="1" onchange="updateTotal(2)">
+                <span id="price-2">$9.00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript functions for actions -->
+    <script>
+        let itemCount = 2;
+
+        function addItem() {
+            itemCount++;
+            const newItemRow = document.createElement('div');
+            newItemRow.classList.add('item-row');
+            newItemRow.setAttribute('data-item-id', itemCount);
+            newItemRow.innerHTML = `
+                <label for="item-${itemCount}">Item ${itemCount}:</label>
+                <select id="item-${itemCount}" onchange="updatePrice(${itemCount})">
+                    <option value="Kung Pao Chicken" data-price="20.00">Kung Pao Chicken - $20.00</option>
+                    <option value="Spring Rolls" data-price="3.00">Spring Rolls - $3.00</option>
+                    <option value="Fried Rice" data-price="10.00">Fried Rice - $10.00</option>
+                    <option value="Sweet and Sour Pork" data-price="15.00">Sweet and Sour Pork - $15.00</option>
+                </select>
+                <input type="number" id="quantity-${itemCount}" value="1" min="1" onchange="updateTotal(${itemCount})">
+                <span id="price-${itemCount}">$20.00</span>
+            `;
+            document.getElementById('order-items').appendChild(newItemRow);
+        }
+
+        function removeItem() {
+            if (itemCount > 1) {
+                const lastItem = document.querySelector(`[data-item-id="${itemCount}"]`);
+                lastItem.remove();
+                itemCount--;
+            }
+        }
+
+        function updatePrice(itemId) {
+            const itemSelect = document.getElementById(`item-${itemId}`);
+            const selectedOption = itemSelect.options[itemSelect.selectedIndex];
+            const price = selectedOption.getAttribute('data-price');
+            const quantity = document.getElementById(`quantity-${itemId}`).value;
+            document.getElementById(`price-${itemId}`).textContent = `$${(price * quantity).toFixed(2)}`;
+        }
+
+        function updateTotal(itemId) {
+            updatePrice(itemId);
+        }
+
+        function saveOrder() {
+            alert('Order saved!');
+            // Redirect back to the order list or reservation page after saving
+            window.location.href = './orders.html';
+        }
+
+        function logout() {
+            window.location.href = '../index.html';
+        }
+
+        function switchLanguage() {
+            const elements = {
+                "edit-order-title": ["Edit Order", "编辑订单"]
+            };
+
+            for (const id in elements) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.textContent = el.textContent === elements[id][0] ? elements[id][1] : elements[id][0];
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

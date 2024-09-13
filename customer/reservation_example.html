@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Reservation - Coco Garden Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ecf0f1;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 20px;
+            text-align: left;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #ecf0f1;
+            display: block;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #34495e;
+        }
+
+        /* Main dashboard content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+            background-color: #ecf0f1;
+            min-height: 100vh;
+        }
+
+        .main-content h1 {
+            margin-top: 0;
+            font-size: 28px;
+        }
+
+        /* Reservation Edit Form */
+        .form-section {
+            margin-top: 40px;
+            font-size: 16px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .form-section input, .form-section select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-section button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-section button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Order Section */
+        .order-section {
+            margin-top: 40px;
+            font-size: 16px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-section h2 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #bdc3c7;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .action-button {
+            padding: 10px 20px;
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+			margin-top: 20px;
+			margin-bottom: 5px;
+        }
+
+        .action-button:hover {
+            background-color: #d35400;
+        }
+
+        .logout-button {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 95%;
+            margin-top: 20px;
+			margin-left: 2.5%;
+			margin-bottom: 10%;
+        }
+
+        .logout-button:hover {
+            background-color: #c0392b;
+        }
+
+        .language-switch {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+			width: 87%;
+			margin-left: 2.5%;
+            border-radius: 5px;
+        }
+
+        .language-switch:hover {
+            background-color: #2980b9;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div>
+            <h2>Coco Garden Manager</h2>
+            <ul>
+                <li><a href="./dashboard.html">Dashboard</a></li>
+                <li><a href="./reservations.html">Make/View Reservations</a></li>
+                <li><a href="./orders.html">View Orders</a></li>
+                <li><a href="./menu.html">View Menu</a></li>
+                <li><a href="./profile.html">Profile</a></li>
+                <li><a href="../support.html">Support</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <!-- Language Switcher -->
+            <div class="language-switch" onclick="switchLanguage()">Switch Language (切换语言)</div>
+            <!-- Logout Button -->
+            <button class="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <h1 id="edit-reservation-title">Edit Reservation</h1>
+
+        <!-- Reservation Edit Form -->
+        <div class="form-section">
+            <label for="customer-name">Customer Name:</label>
+            <input type="text" id="customer-name" value="Jane Doe" required>
+
+            <label for="reservation-time">Reservation Time:</label>
+            <input type="time" id="reservation-time" value="19:00" required>
+
+            <label for="table-number">Table Number:</label>
+			<select id="table-number">
+                    <option value="3" selected>3</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="11">11</option>
+            </select>
+
+            <button type="submit" onclick="saveReservation()">Save Changes</button>
+        </div>
+
+        <!-- Order Section -->
+        <div class="order-section">
+            <h2>Associated Order</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Kung Pao Chicken</td>
+                        <td>2</td>
+                        <td>$20.00</td>
+                    </tr>
+                    <tr>
+                        <td>Spring Rolls</td>
+                        <td>3</td>
+                        <td>$9.00</td>
+                    </tr>
+                    <tr>
+                        <td>Fried Rice</td>
+                        <td>1</td>
+                        <td>$12.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="action-button" onclick="viewOrEditOrder()">Edit Order</button>
+        </div>
+    </div>
+
+    <!-- JavaScript functions for actions -->
+    <script>
+        function saveReservation() {
+            alert('Reservation saved!');
+            // Redirect back to the reservations list after saving
+            window.location.href = './reservations.html';
+        }
+
+        function viewOrEditOrder() {
+            // Redirect to the order edit page
+            window.location.href = './order_example.html';
+        }
+
+        function logout() {
+            window.location.href = '../index.html';
+        }
+
+        function switchLanguage() {
+            const elements = {
+                "edit-reservation-title": ["Edit Reservation", "编辑预订"]
+            };
+
+            for (const id in elements) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.textContent = el.textContent === elements[id][0] ? elements[id][1] : elements[id][0];
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

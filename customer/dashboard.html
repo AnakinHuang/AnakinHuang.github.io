@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Coco Garden Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ecf0f1;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 20px;
+            text-align: left;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #ecf0f1;
+            display: block;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #34495e;
+        }
+
+        /* Main dashboard content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+            background-color: #ecf0f1;
+            min-height: 100vh;
+        }
+
+        .main-content h1 {
+            margin-top: 0;
+        }
+
+        .dashboard-cards {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            width: 23%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .card p {
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+
+        /* Scrollable section for tables */
+        .table-section {
+            margin-top: 40px;
+        }
+
+        .scrollable {
+            max-height: 200px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #bdc3c7;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        /* Buttons */
+        .action-button {
+            padding: 5px 10px;
+            margin-right: 5px;
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            background-color: #d35400;
+        }
+
+        .logout-button {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 95%;
+            margin-top: 20px;
+            margin-left: 2.5%;
+            margin-bottom: 10%;
+        }
+
+        .logout-button:hover {
+            background-color: #c0392b;
+        }
+
+        .language-switch {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            width: 87%;
+            margin-left: 2.5%;
+            border-radius: 5px;
+        }
+
+        .language-switch:hover {
+            background-color: #2980b9;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div>
+            <h2>Coco Garden Manager</h2>
+            <ul>
+                <li><a href="./dashboard.html">Dashboard</a></li>
+                <li><a href="./reservations.html">Make/View Reservations</a></li>
+                <li><a href="./orders.html">View Orders</a></li>
+                <li><a href="./menu.html">View Menu</a></li>
+                <li><a href="./profile.html">Profile</a></li>
+                <li><a href="../support.html">Support</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <!-- Language Switcher -->
+            <div class="language-switch" onclick="switchLanguage()">Switch Language (切换语言)</div>
+            <!-- Logout Button -->
+            <button class="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content" id="dashboard-content">
+        <h1 id="dashboard-title">Customer Dashboard</h1>
+
+        <!-- Quick Overview Cards -->
+        <div class="dashboard-cards">
+            <div class="card">
+                <h3 id="membership-title">Membership Balance</h3>
+                <p>$150.00</p>
+            </div>
+
+            <div class="card">
+                <h3 id="loyalty-title">Loyalty Points</h3>
+                <p>120</p>
+            </div>
+
+            <div class="card">
+                <h3 id="reservations-title">Upcoming Reservations</h3>
+                <p>3</p>
+            </div>
+        </div>
+
+        <!-- Recent Reservations (Scrollable) -->
+        <div class="table-section">
+            <h2 id="recent-reservations-title">Recent Reservations</h2>
+            <!-- Search Bar for Reservations -->
+            <input type="text" id="reservationSearch" class="search-bar" placeholder="Search reservations..." onkeyup="searchReservations()">
+            <div class="scrollable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Reservation ID</th>
+                            <th>Reservation Time</th>
+                            <th>Table Number</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reservationsTableBody">
+                        <tr>
+                            <td>3001</td>
+                            <td>7:00 PM</td>
+                            <td>5</td>
+                            <td>Confirmed</td>
+                            <td>
+                                <button class="action-button" onclick="viewOrEditReservation(3001)">View/Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3002</td>
+                            <td>8:00 PM</td>
+                            <td>8</td>
+                            <td>Pending</td>
+                            <td>
+                                <button class="action-button" onclick="viewOrEditReservation(3002)">View/Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recent Orders (Scrollable) -->
+        <div class="table-section">
+            <h2 id="recent-orders-title">Recent Orders</h2>
+            <!-- Search Bar for Orders -->
+            <input type="text" id="orderSearch" class="search-bar" placeholder="Search orders..." onkeyup="searchOrders()">
+            <div class="scrollable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <tr>
+                            <td>4001</td>
+                            <td>$80</td>
+                            <td>Completed</td>
+                            <td>
+                                <button class="action-button" onclick="viewOrEditOrder(4001)">View/Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4002</td>
+                            <td>$60</td>
+                            <td>In Progress</td>
+                            <td>
+                                <button class="action-button" onclick="viewOrEditOrder(4002)">View/Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript functions for actions -->
+    <script>
+        function viewOrEditReservation(id) {
+            window.location.href = './reservation_example.html';
+        }
+
+        function viewOrEditOrder(id) {
+            window.location.href = './order_example.html';
+        }
+
+        function logout() {
+            window.location.href = '../index.html';
+        }
+
+        function switchLanguage() {
+            const elements = {
+                "dashboard-title": ["Customer Dashboard", "客户仪表板"],
+                "membership-title": ["Membership Balance", "会员余额"],
+                "loyalty-title": ["Loyalty Points", "忠诚积分"],
+                "reservations-title": ["Upcoming Reservations", "即将到来的预订"],
+                "orders-title": ["Recent Orders", "最近订单"],
+                "recent-reservations-title": ["Recent Reservations", "最近预订"],
+                "recent-orders-title": ["Recent Orders", "最近订单"]
+            };
+
+            for (const id in elements) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.textContent = el.textContent === elements[id][0] ? elements[id][1] : elements[id][0];
+                }
+            }
+        }
+
+        function searchReservations() {
+            const filter = document.getElementById('reservationSearch').value.toLowerCase();
+            const rows = document.querySelectorAll("#reservationsTableBody tr");
+            rows.forEach(row => {
+                const reservationId = row.cells[0].textContent.toLowerCase();
+                row.style.display = reservationId.includes(filter) ? '' : 'none';
+            });
+        }
+
+        function searchOrders() {
+            const filter = document.getElementById('orderSearch').value.toLowerCase();
+            const rows = document.querySelectorAll("#ordersTableBody tr");
+            rows.forEach(row => {
+                const orderId = row.cells[0].textContent.toLowerCase();
+                row.style.display = orderId.includes(filter) ? '' : 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>
