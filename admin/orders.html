@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Orders - Coco Garden Manager</title>
+    <title>View/Edit Orders - Coco Garden Manager</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,7 +33,7 @@
             padding-bottom: 20px;
         }
 
-        .sidebar h2 {
+        .sidebar h2, h3 {
             text-align: center;
             margin-top: 20px;
             color: #ecf0f1;
@@ -73,16 +73,6 @@
             font-size: 28px;
         }
 
-        /* Search Bar */
-        .search-bar {
-            padding: 10px;
-            width: 300px;
-            margin-bottom: 0px;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            background-color: white;
-        }
-
         /* Orders Section */
         .orders-table-section {
             margin-top: 10px;
@@ -114,22 +104,22 @@
             color: white;
         }
 
-        .status-placed {
-            color: #f1c40f;
-            font-weight: bold;
-        }
-
-        .status-in-progress {
-            color: #3498db;
-            font-weight: bold;
-        }
-
-        .status-completed {
+        .status-confirmed {
             color: #2ecc71;
             font-weight: bold;
         }
 
-        /* Action button for viewing order */
+        .status-pending {
+            color: #f1c40f;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        /* Action button for editing order */
         .action-button {
             padding: 5px 10px;
             background-color: #e67e22;
@@ -152,8 +142,8 @@
             cursor: pointer;
             width: 95%;
             margin-top: 20px;
-			margin-left: 2.5%;
-			margin-bottom: 10%;
+            margin-left: 2.5%;
+            margin-bottom: 10%;
         }
 
         .logout-button:hover {
@@ -166,8 +156,8 @@
             color: white;
             text-align: center;
             cursor: pointer;
-			width: 87%;
-			margin-left: 2.5%;
+            width: 87%;
+            margin-left: 2.5%;
             border-radius: 5px;
         }
 
@@ -175,6 +165,15 @@
             background-color: #2980b9;
         }
 
+        /* Search Bar */
+        .search-bar {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 0px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+			background-color: white;
+        }
     </style>
 </head>
 <body>
@@ -183,13 +182,15 @@
     <div class="sidebar">
         <div>
             <h2>Coco Garden Manager</h2>
+			<h3>Administrator</h3>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./reservations.html">Make/View Reservations</a></li>
-                <li><a href="./orders.html">View Orders</a></li>
-                <li><a href="./menu.html">View Menu</a></li>
-                <li><a href="./profile.html">Profile</a></li>
-                <li><a href="../support.html">Support</a></li>
+                <li><a href="./messages.html">Messages <span id="message-count" style="color: red; font-weight: bold;">(2)</span></a></li>
+                <li><a href="./reservations.html">View/Edit Reservations</a></li>
+                <li><a href="./orders.html">View/Edit Orders</a></li>
+                <li><a href="./menu.html">View/Edit Menu</a></li>
+                <li><a href="./inventory.html">View/Edit Inventory</a></li>
+                <li><a href="./customers.html">View/Edit Customers</a></li>
             </ul>
         </div>
 
@@ -203,19 +204,20 @@
 
     <!-- Main Content Area -->
     <div class="main-content">
-        <h1 id="orders-title">Your Orders</h1>
+        <h1 id="orders-title">Orders</h1>
 
-        <!-- Search Bar -->
+        <!-- Search Bar for Orders -->
         <input type="text" id="orderSearch" class="search-bar" placeholder="Search orders..." onkeyup="searchOrders()">
 
-        <!-- Orders Table Section -->
+        <!-- Orders Table -->
         <div class="orders-table-section">
-			<h2>Passed Orders</h2>
+			<h2>Current Order</h2>
             <div class="scrollable">
                 <table>
                     <thead>
                         <tr>
                             <th>Order ID</th>
+                            <th>Customer Name</th>
                             <th>Order Time</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -223,19 +225,51 @@
                     </thead>
                     <tbody id="ordersTableBody">
                         <tr>
-                            <td>2001</td>
+                            <td>5001</td>
+                            <td>Jane Doe</td>
                             <td>7:15 PM</td>
-                            <td class="status-completed">Completed</td>
+                            <td class="status-confirmed">
+                                <select>
+                                    <option value="placed" selected>Placed</option>
+                                    <option value="in_progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </td>
                             <td>
-                                <button class="action-button" onclick="viewOrderDetails(2001)">View</button>
+                                <button class="action-button" onclick="viewOrEditOrder(5001)">Edit</button>
                             </td>
                         </tr>
                         <tr>
-                            <td>2002</td>
+                            <td>5002</td>
+                            <td>Michael Chan</td>
                             <td>8:05 PM</td>
-                            <td class="status-in-progress">In Progress</td>
+                            <td class="status-pending">
+                                <select>
+                                    <option value="placed" selected>Placed</option>
+                                    <option value="in_progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </td>
                             <td>
-                                <button class="action-button" onclick="viewOrderDetails(2002)">View</button>
+                                <button class="action-button" onclick="viewOrEditOrder(5002)">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5003</td>
+                            <td>John Smith</td>
+                            <td>6:45 PM</td>
+                            <td class="status-completed">
+                                <select>
+                                    <option value="placed">Placed</option>
+                                    <option value="in_progress">In Progress</option>
+                                    <option value="completed" selected>Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="action-button" onclick="viewOrEditOrder(5003)">Edit</button>
                             </td>
                         </tr>
                     </tbody>
@@ -246,8 +280,8 @@
 
     <!-- JavaScript functions for actions -->
     <script>
-        function viewOrderDetails(id) {
-            window.location.href = './order_view_example.html';
+        function viewOrEditOrder(id) {
+            window.location.href = './order_example.html';
         }
 
         function logout() {
@@ -256,7 +290,7 @@
 
         function switchLanguage() {
             const elements = {
-                "orders-title": ["Your Orders", "订单"]
+                "orders-title": ["Orders", "订单"]
             };
 
             for (const id in elements) {
@@ -272,7 +306,8 @@
             const rows = document.querySelectorAll("#ordersTableBody tr");
             rows.forEach(row => {
                 const orderId = row.cells[0].textContent.toLowerCase();
-                row.style.display = orderId.includes(filter) ? '' : 'none';
+                const customerName = row.cells[1].textContent.toLowerCase();
+                row.style.display = orderId.includes(filter) || customerName.includes(filter) ? '' : 'none';
             });
         }
     </script>

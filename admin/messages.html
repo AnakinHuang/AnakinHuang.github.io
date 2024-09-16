@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View/Edit Orders - Coco Garden Manager</title>
+    <title>Merchant Messages - Coco Garden Manager</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -73,9 +73,9 @@
             font-size: 28px;
         }
 
-        /* Orders Section */
-        .orders-table-section {
-            margin-top: 10px;
+        /* Messages Section */
+        .messages-table-section {
+            margin-top: 40px;
             font-size: 16px;
         }
 
@@ -104,22 +104,12 @@
             color: white;
         }
 
-        .status-confirmed {
-            color: #2ecc71;
+        .message-status {
             font-weight: bold;
+            color: #27ae60;
         }
 
-        .status-pending {
-            color: #f1c40f;
-            font-weight: bold;
-        }
-
-        .status-completed {
-            color: #3498db;
-            font-weight: bold;
-        }
-
-        /* Action button for editing order */
+        /* Action button for resolving/ignoring message */
         .action-button {
             padding: 5px 10px;
             background-color: #e67e22;
@@ -131,6 +121,22 @@
 
         .action-button:hover {
             background-color: #d35400;
+        }
+
+        .resolve-button {
+            background-color: #2ecc71;
+        }
+
+        .resolve-button:hover {
+            background-color: #27ae60;
+        }
+
+        .ignore-button {
+            background-color: #e74c3c;
+        }
+
+        .ignore-button:hover {
+            background-color: #c0392b;
         }
 
         .logout-button {
@@ -169,10 +175,10 @@
         .search-bar {
             padding: 10px;
             width: 300px;
-            margin-bottom: 0px;
+            margin-bottom: 20px;
             border: 1px solid #bdc3c7;
             border-radius: 5px;
-			background-color: white;
+            background-color: white;
         }
     </style>
 </head>
@@ -182,7 +188,7 @@
     <div class="sidebar">
         <div>
             <h2>Coco Garden Manager</h2>
-			<h3>Manager & Staff</h3>
+			<h3>Administrator</h3>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
                 <li><a href="./messages.html">Messages <span id="message-count" style="color: red; font-weight: bold;">(2)</span></a></li>
@@ -204,73 +210,78 @@
 
     <!-- Main Content Area -->
     <div class="main-content">
-        <h1 id="orders-title">Orders</h1>
+        <h1 id="messages-title">Customer Support Messages</h1>
 
-        <!-- Search Bar for Orders -->
-        <input type="text" id="orderSearch" class="search-bar" placeholder="Search orders..." onkeyup="searchOrders()">
-
-        <!-- Orders Table -->
-        <div class="orders-table-section">
-			<h2>Current Order</h2>
+        <!-- New Messages Section with Search Bar -->
+        <div class="messages-table-section">
+            <h2 id="new-messages-title">New Messages</h2>
+            <!-- Search Bar for New Messages -->
+            <input type="text" id="newMessageSearch" class="search-bar" placeholder="Search new messages..." onkeyup="searchNewMessages()">
             <div class="scrollable">
                 <table>
                     <thead>
                         <tr>
-                            <th>Order ID</th>
+                            <th>Message ID</th>
                             <th>Customer Name</th>
-                            <th>Order Time</th>
-                            <th>Status</th>
+                            <th>Email</th>
+                            <th>Message</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="ordersTableBody">
+                    <tbody id="newMessagesTableBody">
                         <tr>
-                            <td>5001</td>
+                            <td>301</td>
                             <td>Jane Doe</td>
-                            <td>7:15 PM</td>
-                            <td class="status-confirmed">
-                                <select>
-                                    <option value="placed" selected>Placed</option>
-                                    <option value="in_progress">In Progress</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="cancelled">Cancelled</option>
-                                </select>
-                            </td>
+                            <td>janedoe@email.com</td>
+                            <td>Having trouble logging in.</td>
                             <td>
-                                <button class="action-button" onclick="viewOrEditOrder(5001)">Edit</button>
+                                <button class="action-button resolve-button" onclick="resolveMessage(301)">Resolve</button>
+                                <button class="action-button ignore-button" onclick="ignoreMessage(301)">Ignore</button>
                             </td>
                         </tr>
                         <tr>
-                            <td>5002</td>
-                            <td>Michael Chan</td>
-                            <td>8:05 PM</td>
-                            <td class="status-pending">
-                                <select>
-                                    <option value="placed" selected>Placed</option>
-                                    <option value="in_progress">In Progress</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="cancelled">Cancelled</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button class="action-button" onclick="viewOrEditOrder(5002)">Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5003</td>
+                            <td>302</td>
                             <td>John Smith</td>
-                            <td>6:45 PM</td>
-                            <td class="status-completed">
-                                <select>
-                                    <option value="placed">Placed</option>
-                                    <option value="in_progress">In Progress</option>
-                                    <option value="completed" selected>Completed</option>
-                                    <option value="cancelled">Cancelled</option>
-                                </select>
-                            </td>
+                            <td>johnsmith@email.com</td>
+                            <td>Request to update my contact info.</td>
                             <td>
-                                <button class="action-button" onclick="viewOrEditOrder(5003)">Edit</button>
+                                <button class="action-button resolve-button" onclick="resolveMessage(302)">Resolve</button>
+                                <button class="action-button ignore-button" onclick="ignoreMessage(302)">Ignore</button>
                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Resolved Messages Section with Search Bar -->
+            <h2 id="resolved-messages-title">Resolved Messages</h2>
+            <!-- Search Bar for Resolved Messages -->
+            <input type="text" id="resolvedMessageSearch" class="search-bar" placeholder="Search resolved messages..." onkeyup="searchResolvedMessages()">
+            <div class="scrollable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Message ID</th>
+                            <th>Customer Name</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resolvedMessagesTableBody">
+                        <tr>
+                            <td>201</td>
+                            <td>Sarah Parker</td>
+                            <td>sarah.parker@email.com</td>
+                            <td>Issue with reservation confirmation.</td>
+                            <td><span class="message-status">Resolved</span></td>
+                        </tr>
+                        <tr>
+                            <td>202</td>
+                            <td>Michael Chan</td>
+                            <td>michaelchan@email.com</td>
+                            <td>Order placed but no confirmation received.</td>
+                            <td><span class="message-status">Resolved</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -280,8 +291,14 @@
 
     <!-- JavaScript functions for actions -->
     <script>
-        function viewOrEditOrder(id) {
-            window.location.href = './order_example.html';
+        function resolveMessage(id) {
+            alert('Message ' + id + ' resolved.');
+            // You can update the backend and move this message to the "Resolved" section
+        }
+
+        function ignoreMessage(id) {
+            alert('Message ' + id + ' ignored.');
+            // You can update the backend to mark this message as ignored or remove it from the list
         }
 
         function logout() {
@@ -290,7 +307,9 @@
 
         function switchLanguage() {
             const elements = {
-                "orders-title": ["Orders", "订单"]
+                "messages-title": ["Customer Support Messages", "客户支持消息"],
+                "new-messages-title": ["New Messages", "新消息"],
+                "resolved-messages-title": ["Resolved Messages", "已解决消息"]
             };
 
             for (const id in elements) {
@@ -301,13 +320,21 @@
             }
         }
 
-        function searchOrders() {
-            const filter = document.getElementById('orderSearch').value.toLowerCase();
-            const rows = document.querySelectorAll("#ordersTableBody tr");
+        function searchNewMessages() {
+            const filter = document.getElementById('newMessageSearch').value.toLowerCase();
+            const rows = document.querySelectorAll("#newMessagesTableBody tr");
             rows.forEach(row => {
-                const orderId = row.cells[0].textContent.toLowerCase();
-                const customerName = row.cells[1].textContent.toLowerCase();
-                row.style.display = orderId.includes(filter) || customerName.includes(filter) ? '' : 'none';
+                const messageId = row.cells[0].textContent.toLowerCase();
+                row.style.display = messageId.includes(filter) ? '' : 'none';
+            });
+        }
+
+        function searchResolvedMessages() {
+            const filter = document.getElementById('resolvedMessageSearch').value.toLowerCase();
+            const rows = document.querySelectorAll("#resolvedMessagesTableBody tr");
+            rows.forEach(row => {
+                const messageId = row.cells[0].textContent.toLowerCase();
+                row.style.display = messageId.includes(filter) ? '' : 'none';
             });
         }
     </script>

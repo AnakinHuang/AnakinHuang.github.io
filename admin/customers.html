@@ -30,7 +30,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding-bottom: 20px; /* Padding added for the bottom */
+            padding-bottom: 20px;
         }
 
         .sidebar h2, h3 {
@@ -73,9 +73,9 @@
             font-size: 28px;
         }
 		
-		/* Menu Edit Form */
+		/* Customer Edit Form */
         .form-section {
-            margin-top: 10px;
+            margin-top: 40px;
             font-size: 16px;
             background-color: white;
             padding: 20px;
@@ -111,8 +111,8 @@
             background-color: #2980b9;
         }
 
-        /* Menu Section */
-        .menu-table-section {
+        /* Customer Table Section */
+        .customer-table-section {
             margin-top: 10px;
             font-size: 16px;
         }
@@ -142,7 +142,7 @@
             color: white;
         }
 
-        /* Action buttons for editing and deleting menu */
+        /* Action buttons for editing and deleting customers */
         .action-button {
             padding: 5px 10px;
             background-color: #e67e22;
@@ -180,7 +180,7 @@
         .logout-button:hover {
             background-color: #c0392b;
         }
-		
+
         .language-switch {
             padding: 10px;
             background-color: #3498db;
@@ -203,19 +203,40 @@
         .save-button:hover {
             background-color: #27ae60;
         }
-		
-		/* Search Bar */
+
+        .add-customer-button {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-customer-button:hover {
+            background-color: #2980b9;
+        }
+
         .search-bar {
             padding: 10px;
             width: 300px;
             margin-bottom: 0px;
             border: 1px solid #bdc3c7;
             border-radius: 5px;
-			background-color: white;
         }
     </style>
 
     <script>
+		function searchCustomer() {
+            const filter = document.getElementById('customerSearch').value.toLowerCase();
+            const rows = document.querySelectorAll("tbody tr");
+            rows.forEach(row => {
+                const nameCell = row.cells[0].querySelector('input').value.toLowerCase();
+                row.style.display = nameCell.includes(filter) ? '' : 'none';
+            });
+        }
+		
         function toggleEdit(button, rowId) {
             const row = document.getElementById(rowId);
             const inputs = row.querySelectorAll('input, select');
@@ -237,32 +258,20 @@
         function deleteRow(rowId) {
             const row = document.getElementById(rowId);
             row.remove();
-            alert('Item deleted!');
-        }
-		
-		function switchLanguage() {
-            const elements = {
-                "menu-title": ["Menu Management", "菜单管理"]
-            };
-
-            for (const id in elements) {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.textContent = el.textContent === elements[id][0] ? elements[id][1] : elements[id][0];
-                }
-            }
+            alert('Customer removed!');
         }
 		
 		function logout() {
             window.location.href = '../index.html';
         }
 		
-		function searchMenu() {
-            const filter = document.getElementById('menuSearch').value.toLowerCase();
-            const rows = document.querySelectorAll("#menuTableBody tr");
-            rows.forEach(row => {
-                const dishName = row.cells[0].querySelector('input').value.toLowerCase();
-                row.style.display = dishName.includes(filter) ? '' : 'none';
+		function switchLanguage() {
+            const elements = document.querySelectorAll("[data-lang]");
+            elements.forEach(element => {
+                const enText = element.getAttribute("data-en");
+                const zhText = element.getAttribute("data-zh");
+                const currentLang = element.innerText;
+                element.innerText = currentLang === enText ? zhText : enText;
             });
         }
     </script>
@@ -273,7 +282,7 @@
     <div class="sidebar">
         <div>
             <h2>Coco Garden Manager</h2>
-			<h3>Manager & Staff</h3>
+			<h3>Administrator</h3>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
                 <li><a href="./messages.html">Messages <span id="message-count" style="color: red; font-weight: bold;">(2)</span></a></li>
@@ -295,71 +304,53 @@
 
     <!-- Main Content Area -->
     <div class="main-content">
-        <h1 id="menu-title" data-lang data-en="Menu Management" data-zh="菜单管理">Menu Management</h1>
+        <h1 id="customer-title" data-lang data-en="Customer Management" data-zh="客户管理">Customer Management</h1>
 		
 		<!-- Search Bar -->
-        <input type="text" id="menuSearch" class="search-bar" placeholder="Search menu..." onkeyup="searchMenu()">
+        <input type="text" id="customerSearch" class="search-bar" placeholder="Search by customer name..." onkeyup="searchCustomer()">
 
         <!-- Menu Table Section -->
-        <div class="menu-table-section">
-            <h2 data-lang data-en="Current Menu" data-zh="当前菜单">Current Menu</h2>
+        <div class="customer-table-section">
+            <h2 data-lang data-en="Customer List" data-zh="客户列表">Customer List</h2>
             <div class="scrollable">
                 <table>
                     <thead>
                         <tr>
-                            <th data-lang data-en="Dish Name" data-zh="菜名">Dish Name</th>
-                            <th data-lang data-en="Category" data-zh="分类">Category</th>
-                            <th data-lang data-en="Price" data-zh="价格">Price</th>
+                            <th data-lang data-en="Customer Name" data-zh="客户姓名">Customer Name</th>
+                            <th data-lang data-en="Email" data-zh="电子邮件">Email</th>
+                            <th data-lang data-en="Phone" data-zh="电话">Phone</th>
+							<th data-lang data-en="Membership ID" data-zh="会员ID">Membership ID</th>
+                            <th data-lang data-en="Membership Balance" data-zh="会员余额">Membership Balance</th>
+                            <th data-lang data-en="Loyalty Points" data-zh="忠诚度积分">Loyalty Points</th>
+							<th data-lang data-en="Password" data-zh="密码">Password</th>
                             <th data-lang data-en="Actions" data-zh="操作">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="menuTableBody">
+                    <tbody>
                         <tr id="row1">
-                            <td><input type="text" value="Kung Pao Chicken" disabled></td>
-                            <td>
-                                <select disabled>
-                                    <option value="Main Course" selected>Main Course</option>
-                                    <option value="Appetizer">Appetizer</option>
-                                    <option value="Dessert">Dessert</option>
-                                    <option value="Drink">Drink</option>
-                                </select>
-                            </td>
-                            <td><input type="number" value="15" disabled></td>
+                            <td><input type="text" name="customer_name" value="Jane Doe" disabled></td>
+							<td><input type="email" name="email" value="jane.doe@email.com" disabled></td>
+                            <td><input type="tel" name="phone_number" value="555-1234" disabled></td>
+							<td><input type="number" name="membership_id" value="3" disabled></td>
+							<td><input type="number" name="membership_balance" value="120.00" disabled></td>
+                            <td><input type="number" name="loyalty_points" value="150" disabled></td>
+							<td><input type="text" name="password" value="wdefafweawf" disabled></td>
                             <td>
                                 <button class="action-button" onclick="toggleEdit(this, 'row1')">Edit</button>
                                 <button class="action-button delete-button" onclick="deleteRow('row1')">Delete</button>
                             </td>
                         </tr>
                         <tr id="row2">
-                            <td><input type="text" value="Spring Rolls" disabled></td>
+                            <td><input type="text" name="customer_name" value="John Smith" disabled></td>
+                            <td><input type="email" name="email" value="john.smith@email.com" disabled></td>
+                            <td><input type="tel" name="phone_number" value="555-5678" disabled></td>
+							<td><input type="number" name="membership_id" value="88" disabled></td>
+							<td><input type="number" name="membership_balance" value="999.00" disabled></td>
+                            <td><input type="number" name="loyalty_points" value="10000" disabled></td>
+							<td><input type="text" name="password" value="gfhtehdrg123." disabled></td>
                             <td>
-                                <select disabled>
-                                    <option value="Appetizer" selected>Appetizer</option>
-                                    <option value="Main Course">Main Course</option>
-                                    <option value="Dessert">Dessert</option>
-                                    <option value="Drink">Drink</option>
-                                </select>
-                            </td>
-                            <td><input type="number" value="8" disabled></td>
-                            <td>
-                                <button class="action-button" onclick="toggleEdit(this, 'row2')">Edit</button>
-                                <button class="action-button delete-button" onclick="deleteRow('row2')">Delete</button>
-                            </td>
-                        </tr>
-                        <tr id="row3">
-                            <td><input type="text" value="Sweet and Sour Pork" disabled></td>
-                            <td>
-                                <select disabled>
-                                    <option value="Main Course" selected>Main Course</option>
-                                    <option value="Appetizer">Appetizer</option>
-                                    <option value="Dessert">Dessert</option>
-                                    <option value="Drink">Drink</option>
-                                </select>
-                            </td>
-                            <td><input type="number" value="14" disabled></td>
-                            <td>
-                                <button class="action-button" onclick="toggleEdit(this, 'row3')">Edit</button>
-                                <button class="action-button delete-button" onclick="deleteRow('row3')">Delete</button>
+                                <button class="action-button" onclick="toggleEdit(this, 'row1')">Edit</button>
+                                <button class="action-button delete-button" onclick="deleteRow('row1')">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -367,26 +358,32 @@
             </div>
         </div>
 
-        <!-- Add or Edit Menu Item Form -->
+        <!-- Add or Customer Form -->
         <div class="form-section">
-            <h2 data-lang data-en="Add New Menu Item" data-zh="添加新菜单项">Add New Menu Item</h2>
+            <h2 data-lang data-en="Add New Customer" data-zh="添加新顾客">Add New Customer</h2>
             <form action="#">
-                <label for="dish-name" data-lang data-en="Dish Name:" data-zh="菜名：">Dish Name:</label>
-                <input type="text" id="dish-name" name="dish-name" required>
+                <label for="customer_name" data-lang data-en="Customer Name:" data-zh="客户姓名：">Customer Name:</label>
+                <input type="text" id="customer_name" name="customer_name" required>
+				
+				<label for="email" data-lang data-en="Email:" data-zh="电子邮件：">Email:</label>
+                <td><input type="email" id="email" name="email" required></td>
+				
+				<label for="phone_number" data-lang data-en="Phone:" data-zh="电话：">Phone:</label>
+                <td><input type="tel" id="phone_number" name="phone_number" required></td>
+				
+				<label for="membership_id" data-lang data-en="Membership ID:" data-zh="会员ID：">Membership ID:</label>
+				<input type="number" id="membership_id" name="membership_id" required>
+				
+				<label for="membership_balance" data-lang data-en="Membership Balance:" data-zh="会员余额：">Membership Balance:</label>
+				<input type="number" id="membership_balance" name="membership_balance" required>
+				
+				<label for="loyalty_points" data-lang data-en="Loyalty Points:" data-zh="忠诚度积分：">Loyalty Points:</label>
+                <input type="number" id="loyalty_points" name="loyalty_points" required>
+				
+				<label for="password" data-lang data-en="Password:" data-zh="密码：">Password:</label>
+				<input type="text" id="password" name="password" required>
 
-                <label for="category" data-lang data-en="Category:" data-zh="分类：">Category:</label>
-                <select id="category" name="category" required>
-                    <option value="Appetizer">Appetizer</option>
-                    <option value="Main Course">Main Course</option>
-                    <option value="Dessert">Dessert</option>
-                    <option value="Drink">Drink</option>
-                    <option value="Special">Special</option>
-                </select>
-
-                <label for="price" data-lang data-en="Price:" data-zh="价格：">Price:</label>
-                <input type="number" step="0.01" id="price" name="price" required>
-
-                <button type="submit" data-lang data-en="Add Item" data-zh="添加项目">Add Item</button>
+                <button class="action-button" type="submit" data-lang data-en="Add New Customer" data-zh="添加新顾客">Add New Customer</button>
             </form>
         </div>
     </div>

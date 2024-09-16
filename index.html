@@ -1,3 +1,11 @@
+<!-- 
+    CSC 461: Introduction to Databases - Project Milestone 1
+	Project Name: Coco Garden Manager – A Custom Restaurant Reservation \& Ordering System
+    Team Members: Yuesong Huang
+    Email: yhu116@ur.rochester.edu
+    Member ID: 1
+    Team Number: 25
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,7 +131,9 @@
                 window.location.href = './customer/dashboard.html';
             } else if (userType === 'merchant') {
                 window.location.href = './merchant/dashboard.html';
-            }
+            } else if (userType === 'administrator') {
+                window.location.href = './admin/dashboard.html';
+			}
         }
     </script>
 </head>
@@ -152,6 +162,7 @@
         <select id="user-type">
             <option value="customer">Customer</option>
             <option value="merchant">Merchant</option>
+			<option value="administrator">Administrator</option>
         </select>
         <button onclick="handleLogin()">Proceed</button>
 

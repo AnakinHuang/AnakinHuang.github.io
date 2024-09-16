@@ -33,7 +33,7 @@
             padding-bottom: 20px;
         }
 
-        .sidebar h2 {
+        .sidebar h2, h3 {
             text-align: center;
             margin-top: 20px;
             color: #ecf0f1;
@@ -180,13 +180,15 @@
     <div class="sidebar">
         <div>
             <h2>Coco Garden Manager</h2>
+			<h3>Administrator</h3>
             <ul>
                 <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./reservations.html">Make/View Reservations</a></li>
-                <li><a href="./orders.html">View Orders</a></li>
-                <li><a href="./menu.html">View Menu</a></li>
-                <li><a href="./profile.html">Profile</a></li>
-                <li><a href="../support.html">Support</a></li>
+                <li><a href="./messages.html">Messages <span id="message-count" style="color: red; font-weight: bold;">(2)</span></a></li>
+                <li><a href="./reservations.html">View/Edit Reservations</a></li>
+                <li><a href="./orders.html">View/Edit Orders</a></li>
+                <li><a href="./menu.html">View/Edit Menu</a></li>
+                <li><a href="./inventory.html">View/Edit Inventory</a></li>
+                <li><a href="./customers.html">View/Edit Customers</a></li>
             </ul>
         </div>
 
@@ -206,6 +208,16 @@
 			<button class="form-section-button" type="submit" onclick="saveOrder()">Save Changes</button>
 			<button class="add-item-button" onclick="addItem()">Add Item</button>
             <button class="remove-item-button" onclick="removeItem()">Remove Item</button>
+			
+			<div>
+				<label for="status">Reservation Status:</label>
+                <select id="status">
+					<option value="placed" selected>Placed</option>
+					<option value="in_progress">In Progress</option>
+					<option value="completed">Completed</option>
+					<option value="cancelled">Cancelled</option>
+				</select>
+            </div>
         </div>
 
         <!-- Order Edit Form -->
