@@ -1,5 +1,5 @@
 <!-- 
-    CSC 461: Introduction to Databases - Project Milestone 1
+    CSC 461: Introduction to Databases - Project Milestone 3
 	Project Name: Coco Garden Manager – A Custom Restaurant Reservation \& Ordering System
     Team Members: Yuesong Huang, Xingzhi Ye
     Email: yhu116@ur.rochester.edu, xye8@u.rochester.edu
@@ -10,272 +10,108 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Orders - Coco Garden Manager</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        /* Sidebar styles */
-        .sidebar {
-            width: 250px;
-            background-color: #2c3e50;
-            color: white;
-            height: 100vh;
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding-bottom: 20px;
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            margin-top: 20px;
-            color: #ecf0f1;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            padding: 15px 20px;
-            text-align: left;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #ecf0f1;
-            display: block;
-        }
-
-        .sidebar ul li:hover {
-            background-color: #34495e;
-        }
-
-        /* Main dashboard content */
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-            width: calc(100% - 250px);
-            background-color: #ecf0f1;
-            min-height: 100vh;
-        }
-
-        .main-content h1 {
-            margin-top: 0;
-            font-size: 28px;
-        }
-
-        /* Search Bar */
-        .search-bar {
-            padding: 10px;
-            width: 300px;
-            margin-bottom: 0px;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            background-color: white;
-        }
-
-        /* Orders Section */
-        .orders-table-section {
-            margin-top: 10px;
-            font-size: 16px;
-        }
-
-        .scrollable {
-            max-height: 300px;
-            overflow-y: scroll;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #bdc3c7;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #3498db;
-            color: white;
-        }
-
-        .status-placed {
-            color: #f1c40f;
-            font-weight: bold;
-        }
-
-        .status-in-progress {
-            color: #3498db;
-            font-weight: bold;
-        }
-
-        .status-completed {
-            color: #2ecc71;
-            font-weight: bold;
-        }
-
-        /* Action button for viewing order */
-        .action-button {
-            padding: 5px 10px;
-            background-color: #e67e22;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .action-button:hover {
-            background-color: #d35400;
-        }
-
-        .logout-button {
-            padding: 10px 20px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 95%;
-            margin-top: 20px;
-			margin-left: 2.5%;
-			margin-bottom: 10%;
-        }
-
-        .logout-button:hover {
-            background-color: #c0392b;
-        }
-
-        .language-switch {
-            padding: 10px;
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            cursor: pointer;
-			width: 87%;
-			margin-left: 2.5%;
-            border-radius: 5px;
-        }
-
-        .language-switch:hover {
-            background-color: #2980b9;
-        }
-
-    </style>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title data-en="View/Edit Orders - Coco Garden Manager" data-lang data-zh="查看/编辑订单 - Coco Garden Manager">
+        View/Edit Orders - Coco Garden Manager</title>
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <link href="../assets/css/customer.css" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Sidebar Navigation -->
-    <div class="sidebar">
-        <div>
-            <h2>Coco Garden Manager</h2>
-            <ul>
-                <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./reservations.html">Make/View Reservations</a></li>
-                <li><a href="./orders.html">View Orders</a></li>
-                <li><a href="./menu.html">View Menu</a></li>
-                <li><a href="./profile.html">Profile</a></li>
-                <li><a href="../support.html">Support</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <!-- Language Switcher -->
-            <div class="language-switch" onclick="switchLanguage()">Switch Language (切换语言)</div>
-            <!-- Logout Button -->
-            <button class="logout-button" onclick="logout()">Logout</button>
-        </div>
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+    <div>
+        <h2>Coco Garden Manager</h2>
+        <h3 data-en="Customer" data-lang data-zh="顾客">Customer</h3>
+        <ul>
+            <li><a data-en="Dashboard" data-lang data-zh="仪表盘" href="./dashboard.html">Dashboard</a></li>
+            <li><a data-en="Make/Edit Reservations" data-lang data-zh="进行/编辑预约" href="./reservations.html">Make/Edit
+                Reservations</a></li>
+            <li><a data-en="View/Edit Orders" data-lang data-zh="查看/编辑订单" href="./orders.html">View/Edit
+                Orders</a></li>
+            <li><a data-en="View Menu" data-lang data-zh="查看菜单" href="./menu.html">View Menu</a></li>
+            <li><a data-en="Profile" data-lang data-zh="个人信息" href="./profile.html">Profile</a></li>
+            <li><a data-en="Loyalty Program" data-lang data-zh="会员 & 忠诚度" href="./vip/loyalty.html">Loyalty
+                Program</a></li>
+            <li><a data-en="Support" data-lang data-zh="支持 & 帮助" href="../support.html">Support</a></li>
+        </ul>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="main-content">
-        <h1 id="orders-title">Your Orders</h1>
+    <div>
+        <!-- Language Switcher -->
+        <button class="language-switch" data-en="Switch Language (切换语言)" data-lang
+                data-zh="切换语言 (Switch Language)" onclick="switchLanguage()">Switch Language (切换语言)
+        </button>
+        <!-- Logout Button -->
+        <button class="logout-button" data-en="Logout" data-lang data-zh="登出" onclick="logout()">Logout</button>
+    </div>
+</div>
 
-        <!-- Search Bar -->
-        <input type="text" id="orderSearch" class="search-bar" placeholder="Search orders..." onkeyup="searchOrders()">
+<!-- Main Content Area -->
+<div class="main-content">
+    <h1 data-en="My Orders" data-lang data-zh="我的订单" id="orders-title">My Orders</h1>
 
-        <!-- Orders Table Section -->
-        <div class="orders-table-section">
-			<h2>Passed Orders</h2>
-            <div class="scrollable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Order Time</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ordersTableBody">
-                        <tr>
-                            <td>2001</td>
-                            <td>7:15 PM</td>
-                            <td class="status-completed">Completed</td>
-                            <td>
-                                <button class="action-button" onclick="viewOrderDetails(2001)">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2002</td>
-                            <td>8:05 PM</td>
-                            <td class="status-in-progress">In Progress</td>
-                            <td>
-                                <button class="action-button" onclick="viewOrderDetails(2002)">View</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <!-- Search Bar for Orders -->
+    <input class="search-bar" data-en="Search orders..."
+           data-lang
+           data-zh="搜索订单..."
+           id="orderSearch"
+           onkeyup="searchOrders()"
+           placeholder="Search orders..."
+           type="text">
+
+    <!-- Orders Table -->
+    <div class="table-section">
+        <h2 data-en="Current Orders" data-lang data-zh="当前订单">Current Orders</h2>
+        <div class="scrollable">
+            <table>
+                <thead>
+                <tr>
+                    <th data-en="Order ID" data-lang data-zh="订单ID">Order ID</th>
+                    <th data-en="Order Time" data-lang data-zh="订单时间">Order Time</th>
+                    <th data-en="Status" data-lang data-zh="状态">Status</th>
+                    <th data-en="Actions" data-lang data-zh="操作">Actions</th>
+                </tr>
+                </thead>
+                <tbody id="ordersTableBody">
+                <tr>
+                    <td>5001</td>
+                    <td>7:15 PM</td>
+                    <td class="status-completed" data-en="Completed" data-lang data-zh="已完成">Completed</td>
+                    <td>
+                        <button class="action-button" data-en="View/Edit" data-lang data-zh="查看/编辑"
+                                onclick="viewOrEditOrder(5001)">View/Edit
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5002</td>
+                    <td>8:05 PM</td>
+                    <td class="status-in-progress" data-en="In Progress" data-lang data-zh="进行中">In Progress</td>
+                    <td>
+                        <button class="action-button" data-en="View/Edit" data-lang data-zh="查看/编辑"
+                                onclick="viewOrEditOrder(5002)">View/Edit
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5003</td>
+                    <td>6:45 PM</td>
+                    <td class="status-placed" data-en="Placed" data-lang data-zh="已下单">Placed</td>
+                    <td>
+                        <button class="action-button" data-en="View/Edit" data-lang data-zh="查看/编辑"
+                                onclick="viewOrEditOrder(5003)">View/Edit
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
-    <!-- JavaScript functions for actions -->
-    <script>
-        function viewOrderDetails(id) {
-            window.location.href = './order_view_example.html';
-        }
-
-        function logout() {
-            window.location.href = '../index.html';
-        }
-
-        function switchLanguage() {
-            const elements = {
-                "orders-title": ["Your Orders", "订单"]
-            };
-
-            for (const id in elements) {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.textContent = el.textContent === elements[id][0] ? elements[id][1] : elements[id][0];
-                }
-            }
-        }
-
-        function searchOrders() {
-            const filter = document.getElementById('orderSearch').value.toLowerCase();
-            const rows = document.querySelectorAll("#ordersTableBody tr");
-            rows.forEach(row => {
-                const orderId = row.cells[0].textContent.toLowerCase();
-                row.style.display = orderId.includes(filter) ? '' : 'none';
-            });
-        }
-    </script>
-
+<!-- JavaScript functions for actions -->
+<script src="../assets/js/common.js"></script>
+<script src="../assets/js/customer.js"></script>
 </body>
 </html>

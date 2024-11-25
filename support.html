@@ -1,5 +1,5 @@
 <!-- 
-    CSC 461: Introduction to Databases - Project Milestone 1
+    CSC 461: Introduction to Databases - Project Milestone 3
 	Project Name: Coco Garden Manager – A Custom Restaurant Reservation \& Ordering System
     Team Members: Yuesong Huang
     Email: yhu116@ur.rochester.edu
@@ -10,185 +10,72 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Support - Coco Garden Manager</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            background-color: #ecf0f1;
-            height: 100vh;
-        }
-
-        .support-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 600px;
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .title {
-            font-size: 36px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 18px;
-            color: #7f8c8d;
-            margin-bottom: 40px;
-        }
-
-        h1 {
-            font-size: 28px;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-size: 22px;
-            color: #3498db;
-            margin-bottom: 10px;
-            font-weight: normal;
-        }
-
-        p {
-            color: #7f8c8d;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #2c3e50;
-            text-align: left;
-        }
-
-        input, textarea, button {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        input:focus, textarea:focus {
-            border-color: #3498db;
-            outline: none;
-        }
-
-        button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #2980b9;
-        }
-
-        .faq-section {
-            margin-top: 40px;
-            text-align: left;
-        }
-
-        .faq-section h2 {
-            margin-bottom: 20px;
-        }
-
-        .faq-section p {
-            margin-bottom: 10px;
-        }
-
-        .faq-section p strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-		
-		.login-footer {
-            margin-top: 20px;
-            color: #7f8c8d;
-            font-size: 14px;
-        }
-
-        .login-footer a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        .login-footer a:hover {
-            text-decoration: underline;
-        }
-
-    </style>
+    <link href="./assets/css/login_support.css" rel="stylesheet">
 </head>
 <body>
 
-    <div class="support-container">
-        <!-- Branding -->
-        <div class="title">Coco Garden</div>
-        <div class="subtitle">Restaurant Manager System</div>
+<div class="support-container">
+    <!-- Branding -->
+    <div class="title">Coco Garden</div>
+    <div class="subtitle">Restaurant Manager System</div>
 
-        <!-- Support Form Section -->
-        <h1>Support</h1>
+    <!-- Support Form Section -->
+    <h1>Support</h1>
 
-        <!-- Contact Form Section -->
-        <h2>Contact Us</h2>
-        <p>If you need assistance, please fill out the form below and we'll get back to you as soon as possible.</p>
+    <!-- Contact Form Section -->
+    <h2>Contact Us</h2>
+    <p>If you need assistance, please fill out the form below and we'll get back to you as soon as possible.</p>
 
-        <form action="#">
-            <label for="name">Your Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+    <form action="#">
+        <label for="name">Your Name:</label>
+        <input id="name" name="name" placeholder="Enter your name" required type="text">
 
-            <label for="email">Your Email:</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <label for="email">Your Email:</label>
+        <input id="email" name="email" placeholder="Enter your email" required type="email">
 
-            <label for="phone">Your Phone Number:</label>
-            <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
+        <label for="phone">Your Phone Number:</label>
+        <input id="phone" name="phone" placeholder="Enter your phone number" required type="text">
 
-            <label for="message">Your Message:</label>
-            <textarea id="message" name="message" placeholder="Describe your issue or question" rows="5" required></textarea>
+        <label for="message">Your Message:</label>
+        <textarea id="message" name="message" placeholder="Describe your issue or question" required
+                  rows="5"></textarea>
 
-            <button type="submit">Submit</button>
-			
-			<!-- Footer with helpful links -->
-			<div class="login-footer">
-				<a href="./index.html">Return to login</a>
-			</div>
-        </form>
+        <button type="submit">Submit</button>
 
-        <!-- FAQ Section -->
-        <div class="faq-section">
-            <h2>Frequently Asked Questions (FAQs)</h2>
-
-            <p>
-                <strong>What if I can't log in to my account?</strong>
-                Ensure you're using the correct email and password. If you're still unable to log in, contact our support team through the form above.
-            </p>
-
-            <p>
-                <strong>How do I make a reservation as a customer?</strong>
-                After logging in as a customer, you can make a reservation by navigating to the "Make a Reservation" section in your dashboard.
-            </p>
-
-            <p>
-                <strong>How do I update the inventory?</strong>
-                Merchants can update the inventory by accessing the "Inventory" section from their dashboard and submitting updated stock levels.
-            </p>
+        <!-- Footer with helpful links -->
+        <div class="login-footer">
+            Return to <a href="./index.html">login</a>
         </div>
+        <div class="login-footer">
+            Return to <a href="./signup.html">signup</a>
+        </div>
+    </form>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <h2>Frequently Asked Questions (FAQs)</h2>
+
+        <p>
+            <strong>What if I can't log in to my account?</strong>
+            Ensure you're using the correct email and password. If you're still unable to log in, contact our support
+            team through the form above.
+        </p>
+
+        <p>
+            <strong>How do I make a reservation as a customer?</strong>
+            After logging in as a customer, you can make a reservation by navigating to the "Make a Reservation" section
+            in your dashboard.
+        </p>
+
+        <p>
+            <strong>How do I update the inventory?</strong>
+            Merchants can update the inventory by accessing the "Inventory" section from their dashboard and submitting
+            updated stock levels.
+        </p>
     </div>
+</div>
 
 </body>
 </html>
