@@ -1,5 +1,5 @@
 <!-- 
-    CSC 461: Introduction to Databases - Project Milestone 1
+    CSC 461: Introduction to Databases - Project Milestone 3
 	Project Name: Coco Garden Manager – A Custom Restaurant Reservation \& Ordering System
     Team Members: Yuesong Huang
     Email: yhu116@ur.rochester.edu
@@ -10,167 +10,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Login - Coco Garden Manager</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #ecf0f1;
-        }
-
-        .login-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            width: 350px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 28px;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-size: 20px;
-            color: #3498db;
-            margin-bottom: 30px;
-            font-weight: normal;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #2c3e50;
-            text-align: left;
-        }
-
-        select, button, input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        select:focus, input:focus {
-            border-color: #3498db;
-        }
-
-        button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #2980b9;
-        }
-
-        /* Disabled fields for future use */
-        .disabled-field {
-            background-color: #f0f0f0;
-            color: #7f8c8d;
-            border: 1px solid #bdc3c7;
-            cursor: not-allowed;
-        }
-
-        /* Branding styles */
-        .title {
-            font-size: 36px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 18px;
-            color: #7f8c8d;
-            margin-bottom: 30px;
-        }
-
-        .login-footer {
-            margin-top: 20px;
-            color: #7f8c8d;
-            font-size: 14px;
-        }
-
-        .login-footer a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        .login-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .note {
-            font-size: 12px;
-            color: #7f8c8d;
-            margin-bottom: 20px;
-        }
-
-    </style>
-
-    <!-- JavaScript for User Selection -->
-    <script>
-        function handleLogin() {
-            const userType = document.getElementById('user-type').value;
-            if (userType === 'customer') {
-                window.location.href = './customer/dashboard.html';
-            } else if (userType === 'merchant') {
-                window.location.href = './merchant/dashboard.html';
-            } else if (userType === 'administrator') {
-                window.location.href = './admin/dashboard.html';
-			}
-        }
-    </script>
+    <link href="./assets/css/login_support.css" rel="stylesheet">
 </head>
 <body>
 
-    <div class="login-container">
-        <!-- Branding -->
-        <div class="title">Coco Garden</div>
-        <div class="subtitle">Restaurant Manager System</div>
+<div class="login-container">
+    <!-- Branding -->
+    <div class="title">Coco Garden</div>
+    <div class="subtitle">Restaurant Manager System</div>
 
-        <!-- Login form -->
-        <h1>Login</h1>
+    <!-- Login form -->
+    <h1>Login</h1>
 
-        <!-- Account and Password Fields -->
-        <label for="account">Account (coming soon):</label>
-        <input type="text" id="account" class="disabled-field" placeholder="Account (disabled)" disabled>
+    <!-- Account and Password Fields -->
+    <label for="account">Account (coming soon):</label>
+    <input disabled id="account" placeholder="Account (disabled)" type="text">
 
-        <label for="password">Password (coming soon):</label>
-        <input type="password" id="password" class="disabled-field" placeholder="Password (disabled)" disabled>
+    <label for="password">Password (coming soon):</label>
+    <input disabled id="password" placeholder="Password (disabled)" type="password">
 
-        <!-- Note about future features -->
-        <div class="note">* Account and password login will be available soon. <br />You can just choose a user type and click the Proceed button.</div>
-
-        <!-- User type selection -->
-        <label for="user-type">Choose User Type:</label>
-        <select id="user-type">
-            <option value="customer">Customer</option>
-            <option value="merchant">Merchant</option>
-			<option value="administrator">Administrator</option>
-        </select>
-        <button onclick="handleLogin()">Proceed</button>
-
-        <!-- Footer with helpful links -->
-        <div class="login-footer">
-            Need help? <a href="./support.html">Contact Support</a>
-        </div>
+    <!-- Note about future features -->
+    <div class="note">* Account and password login will be available soon. <br/>You can just choose a user type and
+        click the Proceed button.
     </div>
 
+    <!-- User type selection -->
+    <label for="user-type">Choose User Type:</label>
+    <select id="user-type">
+        <option value="customer">Customer</option>
+        <option value="merchant">Merchant</option>
+        <option value="administrator">Administrator</option>
+    </select>
+    <button onclick="handleLogin()">Proceed</button>
+
+    <!-- Footer with helpful links -->
+    <div class="login-footer">
+        Don't have an account? <a href="./signup.html">Signup</a>
+    </div>
+    <div class="login-footer">
+        Need help? <a href="./support.html">Contact Support</a>
+    </div>
+</div>
+
+<!-- JavaScript for User Selection -->
+<script>
+    function handleLogin() {
+        const userType = document.getElementById('user-type').value;
+        if (userType === 'customer') {
+            window.location.href = './customer/dashboard.html';
+        } else if (userType === 'merchant') {
+            window.location.href = './merchant/dashboard.html';
+        } else if (userType === 'administrator') {
+            window.location.href = './admin/dashboard.html';
+        }
+    }
+</script>
 </body>
 </html>

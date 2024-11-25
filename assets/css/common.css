@@ -1,0 +1,262 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #ecf0f1;
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.sidebar h2, .sidebar h3 {
+    text-align: center;
+    margin-top: 20px;
+    color: #ecf0f1;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px 20px;
+    text-align: left;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #ecf0f1;
+    display: block;
+}
+
+.sidebar ul li:hover {
+    background-color: #34495e;
+}
+
+/* Main content area */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+}
+
+.main-content h1 {
+    margin-top: 0;
+    font-size: 28px;
+}
+
+.table-section {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #bdc3c7;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+}
+
+.form-section {
+    margin-top: 40px;
+    font-size: 16px;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h2 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.form-section label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.form-section input, .form-section select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Action buttons for View/Edit */
+button, .action-button, .form-section .action-button {
+    text-align: center;
+    padding: 10px 20px;
+    margin-right: 5px;
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover, .action-button:hover, .form-section .action-button:hover {
+    background-color: #d35400;
+}
+
+/* Special buttons */
+.language-switch, .logout-button {
+    background-color: #e74c3c;
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 8%;
+}
+
+.logout-button {
+    background-color: #e74c3c;
+}
+
+.logout-button:hover {
+    background-color: #c0392b;
+}
+
+.form-section button, .language-switch {
+    background-color: #3498db;
+}
+
+.form-section button:hover, .language-switch:hover {
+    background-color: #2980b9;
+}
+
+/* Custom button types */
+.save-button, .form-section .save-button, .resolve-button {
+    background-color: #2ecc71;
+}
+
+.save-button:hover, .form-section .save-button:hover, .resolve-button:hover {
+    background-color: #27ae60;
+}
+
+.delete-button, .form-section .delete-button, .ignore-button, .remove-item-button {
+    background-color: #e74c3c;
+}
+
+.delete-button:hover, .form-section .delete-button:hover, .ignore-button:hover, .remove-item-button:hover {
+    background-color: #c0392b;
+}
+
+button:disabled, .form-section button:disabled, .table-section button:disabled {
+    background-color: #bdc3c7; /* Light gray color */
+    color: #7f8c8d; /* Gray text */
+    cursor: not-allowed; /* Show 'not allowed' cursor */
+}
+
+/* Scrollable sections */
+.scrollable {
+    background-color: white;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    max-height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+}
+
+/* Dashboard cards */
+.dashboard-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    width: 23%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.card p {
+    font-size: 18px;
+    color: #7f8c8d;
+}
+
+/* Search bars */
+.search-bar {
+    padding: 10px;
+    width: 300px;
+    margin-bottom: 20px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    background-color: white;
+}
+
+/* Dropdowns */
+select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #bdc3c7;
+}
+
+.status-confirmed {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.status-pending {
+    color: #f1c40f;
+    font-weight: bold;
+}
+
+.status-completed {
+    color: #3498db;
+    font-weight: bold;
+}
+
+.status-placed {
+    color: #f1c40f;
+    font-weight: bold;
+}
+
+.status-in-progress {
+    color: #3498db;
+    font-weight: bold;
+}
+
+.status-completed {
+    color: #2ecc71;
+    font-weight: bold;
+}

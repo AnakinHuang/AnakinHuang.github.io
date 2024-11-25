@@ -1,5 +1,5 @@
 <!-- 
-    CSC 461: Introduction to Databases - Project Milestone 1
+    CSC 461: Introduction to Databases - Project Milestone 3
 	Project Name: Coco Garden Manager – A Custom Restaurant Reservation \& Ordering System
     Team Members: Yuesong Huang, Xingzhi Ye
     Email: yhu116@ur.rochester.edu, xye8@u.rochester.edu
@@ -10,229 +10,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Profile - Coco Garden Manager</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        /* Sidebar styles */
-        .sidebar {
-            width: 250px;
-            background-color: #2c3e50;
-            color: white;
-            height: 100vh;
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding-bottom: 20px;
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            margin-top: 20px;
-            color: #ecf0f1;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            padding: 15px 20px;
-            text-align: left;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #ecf0f1;
-            display: block;
-        }
-
-        .sidebar ul li:hover {
-            background-color: #34495e;
-        }
-
-        /* Main dashboard content */
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-            width: calc(100% - 250px);
-            background-color: #ecf0f1;
-            min-height: 100vh;
-        }
-
-        .main-content h1 {
-            margin-top: 0;
-            font-size: 28px;
-        }
-
-        /* Profile Form Section */
-        .form-section {
-            margin-top: 40px;
-            font-size: 16px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-section label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .form-section input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .form-section button {
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .form-section button:hover {
-            background-color: #2980b9;
-        }
-
-        /* Logout and language switch */
-        .logout-button {
-            padding: 10px 20px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 95%;
-            margin-top: 20px;
-			margin-left: 2.5%;
-			margin-bottom: 10%;
-        }
-
-        .logout-button:hover {
-            background-color: #c0392b;
-        }
-
-        .language-switch {
-            padding: 10px;
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            cursor: pointer;
-			width: 87%;
-			margin-left: 2.5%;
-            border-radius: 5px;
-        }
-
-        .language-switch:hover {
-            background-color: #2980b9;
-        }
-
-    </style>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title data-en="Profile Management - Coco Garden Manager" data-lang data-zh="个人信息管理 - Coco Garden Manager">
+        Profile Management - Coco Garden Manager</title>
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <link href="../assets/css/customer.css" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Sidebar Navigation -->
-    <div class="sidebar">
-        <div>
-            <h2>Coco Garden Manager</h2>
-            <ul>
-                <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./reservations.html">Make/View Reservations</a></li>
-                <li><a href="./orders.html">View Orders</a></li>
-                <li><a href="./menu.html">View Menu</a></li>
-                <li><a href="./profile.html">Profile</a></li>
-                <li><a href="../support.html">Support</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <!-- Language Switcher -->
-            <div class="language-switch" onclick="switchLanguage()">Switch Language (切换语言)</div>
-            <!-- Logout Button -->
-            <button class="logout-button" onclick="logout()">Logout</button>
-        </div>
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+    <div>
+        <h2>Coco Garden Manager</h2>
+        <h3 data-en="Customer" data-lang data-zh="顾客">Customer</h3>
+        <ul>
+            <li><a data-en="Dashboard" data-lang data-zh="仪表盘" href="./dashboard.html">Dashboard</a></li>
+            <li><a data-en="Make/Edit Reservations" data-lang data-zh="进行/编辑预约" href="./reservations.html">Make/Edit
+                Reservations</a></li>
+            <li><a data-en="View/Edit Orders" data-lang data-zh="查看/编辑订单" href="./orders.html">View/Edit
+                Orders</a></li>
+            <li><a data-en="View Menu" data-lang data-zh="查看菜单" href="./menu.html">View Menu</a></li>
+            <li><a data-en="Profile" data-lang data-zh="个人信息" href="./profile.html">Profile</a></li>
+            <li><a data-en="Loyalty Program" data-lang data-zh="会员 & 忠诚度" href="./vip/loyalty.html">Loyalty
+                Program</a></li>
+            <li><a data-en="Support" data-lang data-zh="支持 & 帮助" href="../support.html">Support</a></li>
+        </ul>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="main-content">
-        <h1 id="profile-title">Manage Profile</h1>
-
-        <!-- Profile Form Section -->
-        <div class="form-section">
-            <form action="#">
-                <!-- Display editable fields for customer name, email, and phone -->
-                <label for="customer_name">Customer Name</label>
-                <input type="text" id="customer_name" name="customer_name" value="Jane Doe" required>
-
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="jane.doe@email.com" required>
-
-                <label for="phone_number">Phone Number</label>
-                <input type="tel" id="phone_number" name="phone_number" value="555-1234" required>
-
-                <!-- Non-editable fields for Membership ID, Balance, and Points -->
-                <label for="membership_id">Membership ID</label>
-                <input type="number" id="membership_id" name="membership_id" value="12345" disabled>
-
-                <label for="membership_balance">Membership Balance</label>
-                <input type="number" id="membership_balance" name="membership_balance" value="150.00" disabled>
-
-                <label for="loyalty_points">Loyalty Points</label>
-                <input type="number" id="loyalty_points" name="loyalty_points" value="120" disabled>
-
-                <!-- Change Password Section -->
-                <h2>Change Password</h2>
-
-                <label for="old_password">Old Password</label>
-                <input type="password" id="old_password" name="old_password" required>
-
-                <label for="new_password">New Password</label>
-                <input type="password" id="new_password" name="new_password" required>
-
-                <label for="confirm_password">Confirm New Password</label>
-                <input type="password" id="confirm_password" name="confirm_password" required>
-
-                <button type="submit">Save Changes</button>
-            </form>
-        </div>
+    <div>
+        <!-- Language Switcher -->
+        <button class="language-switch" data-en="Switch Language (切换语言)" data-lang
+                data-zh="切换语言 (Switch Language)" onclick="switchLanguage()">Switch Language (切换语言)
+        </button>
+        <!-- Logout Button -->
+        <button class="logout-button" data-en="Logout" data-lang data-zh="登出" onclick="logout()">Logout</button>
     </div>
+</div>
 
-    <!-- JavaScript functions -->
-    <script>
-        function logout() {
-            window.location.href = '../index.html';
-        }
+<!-- Main Content Area -->
+<div class="main-content">
+    <h1 data-en="Manage Profile" data-lang data-zh="管理个人信息" id="profile-title">Manage Profile</h1>
 
-        function switchLanguage() {
-            const elements = {
-                "profile-title": ["Manage Profile", "管理档案"]
-            };
+    <!-- Profile Form Section -->
+    <div class="form-section">
+        <form action="../assets/php/profile.php" method="POST">
+            <!-- Editable fields for customer name, email, and phone -->
+            <label data-en="Username:" data-lang data-zh="用户名：" for="username">Username:</label>
+            <input id="username" name="username" required type="text" value="Jane Doe">
 
-            for (const id in elements) {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.textContent = el.textContent === elements[id][0] ? elements[id][1] : elements[id][0];
-                }
-            }
-        }
-    </script>
+            <label data-en="Email:" data-lang data-zh="电子邮件：" for="email">Email:</label>
+            <input id="email" name="email" required type="email" value="jane.doe@email.com">
 
+            <label data-en="Phone Number:" data-lang data-zh="电话号码：" for="phone-number">Phone Number:</label>
+            <input id="phone-number" name="phone_number" required type="tel" value="555-1234">
+
+            <!-- Change Password Section -->
+            <label data-en="Old Password:" data-lang data-zh="旧密码：" for="old-password">Old Password:</label>
+            <input id="old-password" name="old_password" required type="password">
+
+            <label data-en="New Password:" data-lang data-zh="新密码：" for="new-password">New Password:</label>
+            <input id="new-password" name="new_password" type="password">
+
+            <label data-en="Confirm New Password:" data-lang data-zh="确认新密码：" for="confirm-password">Confirm New
+                Password:</label>
+            <input id="confirm-password" name="confirm_password" type="password">
+
+            <button data-en="Save Changes" data-lang data-zh="保存更改" type="submit">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript functions for actions -->
+<script src="../assets/js/common.js"></script>
+<script src="../assets/js/customer.js"></script>
+<script src="../assets/js/login.js"></script>
 </body>
 </html>

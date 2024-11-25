@@ -1,5 +1,5 @@
-<!-- 
-    CSC 461: Introduction to Databases - Project Milestone 1
+<!--
+    CSC 461: Introduction to Databases - Project Milestone 3
 	Project Name: Coco Garden Manager – A Custom Restaurant Reservation \& Ordering System
     Team Members: Yuesong Huang, Xingzhi Ye
     Email: yhu116@ur.rochester.edu, xye8@u.rochester.edu
@@ -10,386 +10,170 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View/Edit Menu - Coco Garden Manager</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        /* Sidebar styles */
-        .sidebar {
-            width: 250px;
-            background-color: #2c3e50;
-            color: white;
-            height: 100vh;
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding-bottom: 20px; /* Padding added for the bottom */
-        }
-
-        .sidebar h2, h3 {
-            text-align: center;
-            margin-top: 20px;
-            color: #ecf0f1;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            padding: 15px 20px;
-            text-align: left;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #ecf0f1;
-            display: block;
-        }
-
-        .sidebar ul li:hover {
-            background-color: #34495e;
-        }
-
-        /* Main dashboard content */
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-            width: calc(100% - 250px);
-            background-color: #ecf0f1;
-            min-height: 100vh;
-        }
-
-        .main-content h1 {
-            margin-top: 0;
-            font-size: 28px;
-        }
-		
-		/* Menu Edit Form */
-        .form-section {
-            margin-top: 10px;
-            font-size: 16px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-section label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .form-section input, .form-section select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .form-section button {
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .form-section button:hover {
-            background-color: #2980b9;
-        }
-
-        /* Menu Section */
-        .menu-table-section {
-            margin-top: 10px;
-            font-size: 16px;
-        }
-
-        .scrollable {
-            max-height: 300px;
-            overflow-y: scroll;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #bdc3c7;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #3498db;
-            color: white;
-        }
-
-        /* Action buttons for editing and deleting menu */
-        .action-button {
-            padding: 5px 10px;
-            background-color: #e67e22;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .action-button:hover {
-            background-color: #d35400;
-        }
-
-        .delete-button {
-            background-color: #e74c3c;
-        }
-
-        .delete-button:hover {
-            background-color: #c0392b;
-        }
-
-        .logout-button {
-            padding: 10px 20px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 95%;
-            margin-top: 20px;
-			margin-left: 2.5%;
-			margin-bottom: 10%;
-        }
-
-        .logout-button:hover {
-            background-color: #c0392b;
-        }
-		
-        .language-switch {
-            padding: 10px;
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            cursor: pointer;
-			width: 87%;
-			margin-left: 2.5%;
-            border-radius: 5px;
-        }
-
-        .language-switch:hover {
-            background-color: #2980b9;
-        }
-
-        .save-button {
-            background-color: #2ecc71;
-        }
-
-        .save-button:hover {
-            background-color: #27ae60;
-        }
-		
-		/* Search Bar */
-        .search-bar {
-            padding: 10px;
-            width: 300px;
-            margin-bottom: 0px;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-			background-color: white;
-        }
-    </style>
-
-    <script>
-        function toggleEdit(button, rowId) {
-            const row = document.getElementById(rowId);
-            const inputs = row.querySelectorAll('input, select');
-
-            if (button.innerText === "Edit") {
-                // Enable editing
-                inputs.forEach(input => input.removeAttribute('disabled'));
-                button.innerText = "Save Changes";
-                button.classList.add('save-button');
-            } else {
-                // Disable editing and save changes
-                inputs.forEach(input => input.setAttribute('disabled', true));
-                button.innerText = "Edit";
-                button.classList.remove('save-button');
-                alert('Changes saved successfully!');
-            }
-        }
-
-        function deleteRow(rowId) {
-            const row = document.getElementById(rowId);
-            row.remove();
-            alert('Item deleted!');
-        }
-		
-		function switchLanguage() {
-            const elements = {
-                "menu-title": ["Menu Management", "菜单管理"]
-            };
-
-            for (const id in elements) {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.textContent = el.textContent === elements[id][0] ? elements[id][1] : elements[id][0];
-                }
-            }
-        }
-		
-		function logout() {
-            window.location.href = '../index.html';
-        }
-		
-		function searchMenu() {
-            const filter = document.getElementById('menuSearch').value.toLowerCase();
-            const rows = document.querySelectorAll("#menuTableBody tr");
-            rows.forEach(row => {
-                const dishName = row.cells[0].querySelector('input').value.toLowerCase();
-                row.style.display = dishName.includes(filter) ? '' : 'none';
-            });
-        }
-    </script>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title data-en="Menu Management - Coco Garden Manager" data-lang data-zh="菜单管理 - Coco Garden Manager">Menu
+        Management - Coco Garden Manager</title>
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <link href="../assets/css/admin_merchant.css" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Sidebar Navigation -->
-    <div class="sidebar">
-        <div>
-            <h2>Coco Garden Manager</h2>
-			<h3>Administrator</h3>
-            <ul>
-                <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./messages.html">Messages <span id="message-count" style="color: red; font-weight: bold;">(2)</span></a></li>
-                <li><a href="./reservations.html">View/Edit Reservations</a></li>
-                <li><a href="./orders.html">View/Edit Orders</a></li>
-                <li><a href="./menu.html">View/Edit Menu</a></li>
-                <li><a href="./inventory.html">View/Edit Inventory</a></li>
-                <li><a href="./customers.html">View/Edit Customers</a></li>
-            </ul>
-        </div>
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+    <div>
+        <h2>Coco Garden Manager</h2>
+        <h3 data-en="Administrator" data-lang data-zh="管理员">Administrator</h3>
+        <ul>
+            <li><a data-en="Dashboard" data-lang data-zh="仪表盘" href="./dashboard.html">Dashboard</a></li>
+            <li><a data-en="Messages " data-lang data-zh="消息 " href="./messages.html"><span
+                    id="message-text">Messages </span><span id="message-count" style="color: red; font-weight: bold;">(2)</span></a>
+            </li>
+            <li><a data-en="View/Edit Reservations" data-lang data-zh="查看/编辑预约" href="./reservations.html">View/Edit
+                Reservations</a></li>
+            <li><a data-en="View/Edit Orders" data-lang data-zh="查看/编辑订单" href="./orders.html">View/Edit
+                Orders</a></li>
+            <li><a data-en="View/Edit Menu" data-lang data-zh="查看/编辑菜单" href="./menu.html">View/Edit Menu</a></li>
+            <li><a data-en="View/Edit Inventory" data-lang data-zh="查看/编辑库存" href="./inventory.html">View/Edit
+                Inventory</a></li>
+            <li><a data-en="View/Edit Customers" data-lang data-zh="查看/编辑客户" href="./customers.html">View/Edit
+                Customers</a></li>
+        </ul>
+    </div>
 
-        <div>
-            <!-- Language Switcher -->
-            <div class="language-switch" onclick="switchLanguage()">Switch Language (切换语言)</div>
-            <!-- Logout Button -->
-            <button class="logout-button" onclick="logout()">Logout</button>
+    <div>
+        <!-- Language Switcher -->
+        <button class="language-switch" data-en="Switch Language (切换语言)" data-lang
+                data-zh="切换语言 (Switch Language)" onclick="switchLanguage()">Switch Language (切换语言)
+        </button>
+        <!-- Logout Button -->
+        <button class="logout-button" data-en="Logout" data-lang data-zh="登出" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<!-- Main Content Area -->
+<div class="main-content">
+    <h1 data-en="Menu Management" data-lang data-zh="菜单管理" id="menu-title">Menu Management</h1>
+
+    <!-- Search Bar -->
+    <input class="search-bar" data-en="Search menu..." data-lang data-zh="搜索菜单..."
+           id="menuSearch"
+           onkeyup="searchMenu()"
+           placeholder="Search menu..."
+           type="text">
+
+    <!-- Menu Table Section -->
+    <div class="table-section">
+        <h2 data-en="Current Menu" data-lang data-zh="当前菜单">Current Menu</h2>
+        <div class="scrollable">
+            <table>
+                <thead>
+                <tr>
+                    <th data-en="Dish Name" data-lang data-zh="菜名">Dish Name</th>
+                    <th data-en="Category" data-lang data-zh="分类">Category</th>
+                    <th data-en="Price" data-lang data-zh="价格">Price</th>
+                    <th data-en="Actions" data-lang data-zh="操作">Actions</th>
+                </tr>
+                </thead>
+                <tbody id="menuTableBody">
+                <tr id="row1">
+                    <td><input disabled type="text" value="Kung Pao Chicken"></td>
+                    <td>
+                        <select disabled>
+                            <option data-en="Main Course" data-lang data-zh="主菜" selected value="Main Course">Main
+                                Course
+                            </option>
+                            <option data-en="Appetizer" data-lang data-zh="开胃菜" value="Appetizer">Appetizer</option>
+                            <option data-en="Dessert" data-lang data-zh="甜点" value="Dessert">Dessert</option>
+                            <option data-en="Drink" data-lang data-zh="饮品" value="Drink">Drink</option>
+                        </select>
+                    </td>
+                    <td><input disabled type="number" value="15"></td>
+                    <td>
+                        <button class="action-button" data-en="Edit" data-lang data-zh="编辑"
+                                onclick="toggleEdit(this, 'row1')">Edit
+                        </button>
+                        <button class="action-button delete-button" data-en="Delete" data-lang data-zh="删除"
+                                onclick="deleteRow('row1')">Delete
+                        </button>
+                    </td>
+                </tr>
+                <tr id="row2">
+                    <td><input disabled type="text" value="Spring Rolls"></td>
+                    <td>
+                        <select disabled>
+                            <option data-en="Main Course" data-lang data-zh="主菜" selected value="Main Course">Main
+                                Course
+                            </option>
+                            <option data-en="Appetizer" data-lang data-zh="开胃菜" value="Appetizer">Appetizer</option>
+                            <option data-en="Dessert" data-lang data-zh="甜点" value="Dessert">Dessert</option>
+                            <option data-en="Drink" data-lang data-zh="饮品" value="Drink">Drink</option>
+                        </select>
+                    </td>
+                    <td><input disabled type="number" value="8"></td>
+                    <td>
+                        <button class="action-button" data-en="Edit" data-lang data-zh="编辑"
+                                onclick="toggleEdit(this, 'row2')">Edit
+                        </button>
+                        <button class="action-button delete-button" data-en="Delete" data-lang data-zh="删除"
+                                onclick="deleteRow('row2')">Delete
+                        </button>
+                    </td>
+                </tr>
+                <tr id="row3">
+                    <td><input disabled type="text" value="Sweet and Sour Pork"></td>
+                    <td>
+                        <select disabled>
+                            <option data-en="Main Course" data-lang data-zh="主菜" selected value="Main Course">Main
+                                Course
+                            </option>
+                            <option data-en="Appetizer" data-lang data-zh="开胃菜" value="Appetizer">Appetizer</option>
+                            <option data-en="Dessert" data-lang data-zh="甜点" value="Dessert">Dessert</option>
+                            <option data-en="Drink" data-lang data-zh="饮品" value="Drink">Drink</option>
+                        </select>
+                    </td>
+                    <td><input disabled type="number" value="14"></td>
+                    <td>
+                        <button class="action-button" data-en="Edit" data-lang data-zh="编辑"
+                                onclick="toggleEdit(this, 'row3')">Edit
+                        </button>
+                        <button class="action-button delete-button" data-en="Delete" data-lang data-zh="删除"
+                                onclick="deleteRow('row3')">Delete
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="main-content">
-        <h1 id="menu-title" data-lang data-en="Menu Management" data-zh="菜单管理">Menu Management</h1>
-		
-		<!-- Search Bar -->
-        <input type="text" id="menuSearch" class="search-bar" placeholder="Search menu..." onkeyup="searchMenu()">
+    <!-- Add or Edit Menu Item Form -->
+    <div class="form-section">
+        <h2 data-en="Add New Menu Item" data-lang data-zh="添加新菜单项">Add New Menu Item</h2>
+        <form action="#">
+            <label data-en="Dish Name:" data-lang data-zh="菜名：" for="dish-name">Dish Name:</label>
+            <input id="dish-name" name="dish-name" required type="text">
 
-        <!-- Menu Table Section -->
-        <div class="menu-table-section">
-            <h2 data-lang data-en="Current Menu" data-zh="当前菜单">Current Menu</h2>
-            <div class="scrollable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th data-lang data-en="Dish Name" data-zh="菜名">Dish Name</th>
-                            <th data-lang data-en="Category" data-zh="分类">Category</th>
-                            <th data-lang data-en="Price" data-zh="价格">Price</th>
-                            <th data-lang data-en="Actions" data-zh="操作">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="menuTableBody">
-                        <tr id="row1">
-                            <td><input type="text" value="Kung Pao Chicken" disabled></td>
-                            <td>
-                                <select disabled>
-                                    <option value="Main Course" selected>Main Course</option>
-                                    <option value="Appetizer">Appetizer</option>
-                                    <option value="Dessert">Dessert</option>
-                                    <option value="Drink">Drink</option>
-                                </select>
-                            </td>
-                            <td><input type="number" value="15" disabled></td>
-                            <td>
-                                <button class="action-button" onclick="toggleEdit(this, 'row1')">Edit</button>
-                                <button class="action-button delete-button" onclick="deleteRow('row1')">Delete</button>
-                            </td>
-                        </tr>
-                        <tr id="row2">
-                            <td><input type="text" value="Spring Rolls" disabled></td>
-                            <td>
-                                <select disabled>
-                                    <option value="Appetizer" selected>Appetizer</option>
-                                    <option value="Main Course">Main Course</option>
-                                    <option value="Dessert">Dessert</option>
-                                    <option value="Drink">Drink</option>
-                                </select>
-                            </td>
-                            <td><input type="number" value="8" disabled></td>
-                            <td>
-                                <button class="action-button" onclick="toggleEdit(this, 'row2')">Edit</button>
-                                <button class="action-button delete-button" onclick="deleteRow('row2')">Delete</button>
-                            </td>
-                        </tr>
-                        <tr id="row3">
-                            <td><input type="text" value="Sweet and Sour Pork" disabled></td>
-                            <td>
-                                <select disabled>
-                                    <option value="Main Course" selected>Main Course</option>
-                                    <option value="Appetizer">Appetizer</option>
-                                    <option value="Dessert">Dessert</option>
-                                    <option value="Drink">Drink</option>
-                                </select>
-                            </td>
-                            <td><input type="number" value="14" disabled></td>
-                            <td>
-                                <button class="action-button" onclick="toggleEdit(this, 'row3')">Edit</button>
-                                <button class="action-button delete-button" onclick="deleteRow('row3')">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            <label data-en="Category:" data-lang data-zh="分类：" for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option data-en="Appetizer" data-lang data-zh="开胃菜" value="Appetizer">Appetizer</option>
+                <option data-en="Main Course" data-lang data-zh="主菜" value="Main Course">Main Course</option>
+                <option data-en="Dessert" data-lang data-zh="甜点" value="Dessert">Dessert</option>
+                <option data-en="Drink" data-lang data-zh="饮品" value="Drink">Drink</option>
+                <option data-en="Special" data-lang data-zh="特色菜" value="Special">Special</option>
+            </select>
 
-        <!-- Add or Edit Menu Item Form -->
-        <div class="form-section">
-            <h2 data-lang data-en="Add New Menu Item" data-zh="添加新菜单项">Add New Menu Item</h2>
-            <form action="#">
-                <label for="dish-name" data-lang data-en="Dish Name:" data-zh="菜名：">Dish Name:</label>
-                <input type="text" id="dish-name" name="dish-name" required>
+            <label data-en="Price:" data-lang data-zh="价格：" for="price">Price:</label>
+            <input id="price" name="price" required step="0.01" type="number">
 
-                <label for="category" data-lang data-en="Category:" data-zh="分类：">Category:</label>
-                <select id="category" name="category" required>
-                    <option value="Appetizer">Appetizer</option>
-                    <option value="Main Course">Main Course</option>
-                    <option value="Dessert">Dessert</option>
-                    <option value="Drink">Drink</option>
-                    <option value="Special">Special</option>
-                </select>
-
-                <label for="price" data-lang data-en="Price:" data-zh="价格：">Price:</label>
-                <input type="number" step="0.01" id="price" name="price" required>
-
-                <button type="submit" data-lang data-en="Add Item" data-zh="添加项目">Add Item</button>
-            </form>
-        </div>
+            <button class="save-button" data-en="Add New Item" data-lang data-zh="添加新项目" type="submit">Add New
+                Item
+            </button>
+        </form>
     </div>
+</div>
 
+<!-- JavaScript functions for actions -->
+<script src="../assets/js/common.js"></script>
+<script src="../assets/js/admin_merchant.js"></script>
 </body>
 </html>

@@ -1,0 +1,80 @@
+<!-- 
+    CSC 461: Introduction to Databases - Project Milestone 3
+	Project Name: Coco Garden Manager – A Custom Restaurant Reservation \& Ordering System
+    Team Members: Yuesong Huang, Xingzhi Ye
+    Email: yhu116@ur.rochester.edu, xye8@u.rochester.edu
+    Member ID: 1, 2
+    Team Number: 25
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title data-en="Loyalty Program - Coco Garden Manager" data-lang data-zh="会员 & 忠诚度 - Coco Garden Manager">
+        Loyalty Program - Coco Garden Manager</title>
+    <link href="../../assets/css/common.css" rel="stylesheet">
+    <link href="../../assets/css/customer.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+    <div>
+        <h2>Coco Garden Manager</h2>
+        <h3 data-en="Customer" data-lang data-zh="顾客">Customer</h3>
+        <ul>
+            <li><a data-en="Dashboard" data-lang data-zh="仪表盘" href="../dashboard.html">Dashboard</a></li>
+            <li><a data-en="Make/Edit Reservations" data-lang data-zh="进行/编辑预约" href="../reservations.html">Make/Edit
+                Reservations</a></li>
+            <li><a data-en="View/Edit Orders" data-lang data-zh="查看/编辑订单" href="../orders.html">View/Edit
+                Orders</a></li>
+            <li><a data-en="View Menu" data-lang data-zh="查看菜单" href="../menu.html">View Menu</a></li>
+            <li><a data-en="Profile" data-lang data-zh="个人信息" href="../profile.html">Profile</a></li>
+            <li><a data-en="Loyalty Program" data-lang data-zh="会员 & 忠诚度" href="./loyalty.html">Loyalty Program</a>
+            </li>
+            <li><a data-en="Support" data-lang data-zh="支持 & 帮助" href="../../support.html">Support</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <!-- Language Switcher -->
+        <button class="language-switch" data-en="Switch Language (切换语言)" data-lang
+                data-zh="切换语言 (Switch Language)" onclick="switchLanguage()">Switch Language (切换语言)
+        </button>
+        <!-- Logout Button -->
+        <button class="logout-button" data-en="Logout" data-lang data-zh="登出" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<!-- Main Content Area -->
+<div class="main-content">
+    <h1 data-en="Loyalty Program" data-lang data-zh="会员 & 忠诚度" id="loyalty-title">Loyalty Program</h1>
+
+    <!-- Profile Form Section -->
+    <div class="form-section">
+        <form action="#">
+            <!-- Non-editable fields for Membership ID, Balance, Points -->
+            <label data-en="Membership ID:" data-lang data-zh="会员编号：" for="membership_id">Membership ID:</label>
+            <input disabled id="membership_id" name="membership_id" type="number" value="12345">
+
+            <label data-en="Membership Balance:" data-lang data-zh="会员余额：" for="membership_balance">Membership
+                Balance:</label>
+            <input disabled id="membership_balance" name="membership_balance" type="number" value="150.00">
+
+            <label data-en="Loyalty Points:" data-lang data-zh="忠诚度积分：" for="loyalty_points">Loyalty
+                Points:</label>
+            <input disabled id="loyalty_points" name="loyalty_points" type="number" value="120">
+
+            <label data-en="Points to Dollar Ratio:" data-lang data-zh="积分兑换比率：" for="loyalty_points2dollar">Points
+                to Dollar Ratio:</label>
+            <input disabled id="loyalty_points2dollar" name="loyalty_points2dollar" type="number" value="10">
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript functions for actions -->
+<script src="../../assets/js/common.js"></script>
+<script src="../../assets/js/customer.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!-- 
-    CSC 461: Introduction to Databases - Project Milestone 1
+    CSC 461: Introduction to Databases - Project Milestone 3
 	Project Name: Coco Garden Manager – A Custom Restaurant Reservation \& Ordering System
     Team Members: Yuesong Huang, Xingzhi Ye
     Email: yhu116@ur.rochester.edu, xye8@u.rochester.edu
@@ -10,411 +10,227 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merchant Dashboard - Coco Garden Manager</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        /* Sidebar styles */
-        .sidebar {
-            width: 250px;
-            background-color: #2c3e50;
-            color: white;
-            height: 100vh;
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding-bottom: 20px; /* Padding added for the bottom */
-        }
-
-        .sidebar h2, h3 {
-            text-align: center;
-            margin-top: 20px;
-            color: #ecf0f1;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            padding: 15px 20px;
-            text-align: left;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #ecf0f1;
-            display: block;
-        }
-
-        .sidebar ul li:hover {
-            background-color: #34495e;
-        }
-
-        /* Main dashboard content */
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-            width: calc(100% - 250px);
-            background-color: #ecf0f1;
-            min-height: 100vh;
-        }
-
-        .main-content h1 {
-            margin-top: 0;
-        }
-
-        .dashboard-cards {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background-color: white;
-            padding: 20px;
-            width: 23%;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .card h3 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
-
-        .card p {
-            font-size: 18px;
-            color: #7f8c8d;
-        }
-
-        /* Tables section */
-        .table-section {
-            margin-top: 40px;
-        }
-
-        .scrollable {
-            max-height: 200px;
-            overflow-y: scroll;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #bdc3c7;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #3498db;
-            color: white;
-        }
-
-        /* Dropdown for quick status updates */
-        select {
-            padding: 5px;
-            border-radius: 5px;
-        }
-
-        /* Action buttons for View/Edit */
-        .action-button {
-            padding: 5px 10px;
-            margin-right: 5px;
-            background-color: #e67e22;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .action-button:hover {
-            background-color: #d35400;
-        }
-
-        .logout-button {
-            padding: 10px 20px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 95%;
-            margin-top: 20px;
-			margin-left: 2.5%;
-			margin-bottom: 10%;
-        }
-
-        .logout-button:hover {
-            background-color: #c0392b;
-        }
-
-        .language-switch {
-            padding: 10px;
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            cursor: pointer;
-			width: 87%;
-			margin-left: 2.5%;
-            border-radius: 5px;
-        }
-
-        .language-switch:hover {
-            background-color: #2980b9;
-        }
-		
-		/* Search Bar */
-        .search-bar {
-            padding: 10px;
-            width: 300px;
-            margin-bottom: 20px;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            background-color: white;
-        }
-    </style>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title data-en="Administrator Dashboard - Coco Garden Manager" data-lang
+           data-zh="管理员仪表板 - Coco Garden Manager">Administrator Dashboard - Coco Garden Manager</title>
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <link href="../assets/css/admin_merchant.css" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Sidebar Navigation -->
-    <div class="sidebar">
-        <div>
-            <h2>Coco Garden Manager</h2>
-			<h3>Administrator</h3>
-            <ul>
-                <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./messages.html">Messages <span id="message-count" style="color: red; font-weight: bold;">(2)</span></a></li>
-                <li><a href="./reservations.html">View/Edit Reservations</a></li>
-                <li><a href="./orders.html">View/Edit Orders</a></li>
-                <li><a href="./menu.html">View/Edit Menu</a></li>
-                <li><a href="./inventory.html">View/Edit Inventory</a></li>
-                <li><a href="./customers.html">View/Edit Customers</a></li>
-            </ul>
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+    <div>
+        <h2>Coco Garden Manager</h2>
+        <h3 data-en="Administrator" data-lang data-zh="管理员">Administrator</h3>
+        <ul>
+            <li><a data-en="Dashboard" data-lang data-zh="仪表盘" href="./dashboard.html">Dashboard</a></li>
+            <li><a data-en="Messages " data-lang data-zh="消息 " href="./messages.html"><span
+                    id="message-text">Messages </span><span id="message-count" style="color: red; font-weight: bold;">(2)</span></a>
+            </li>
+            <li><a data-en="View/Edit Reservations" data-lang data-zh="查看/编辑预约" href="./reservations.html">View/Edit
+                Reservations</a></li>
+            <li><a data-en="View/Edit Orders" data-lang data-zh="查看/编辑订单" href="./orders.html">View/Edit
+                Orders</a></li>
+            <li><a data-en="View/Edit Menu" data-lang data-zh="查看/编辑菜单" href="./menu.html">View/Edit Menu</a></li>
+            <li><a data-en="View/Edit Inventory" data-lang data-zh="查看/编辑库存" href="./inventory.html">View/Edit
+                Inventory</a></li>
+            <li><a data-en="View/Edit Customers" data-lang data-zh="查看/编辑客户" href="./customers.html">View/Edit
+                Customers</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <!-- Language Switcher -->
+        <button class="language-switch" data-en="Switch Language (切换语言)" data-lang
+                data-zh="切换语言 (Switch Language)" onclick="switchLanguage()">Switch Language (切换语言)
+        </button>
+        <!-- Logout Button -->
+        <button class="logout-button" data-en="Logout" data-lang data-zh="登出" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<!-- Main Content Area -->
+<div class="main-content" id="dashboard-content">
+    <h1 data-en="Administrator Dashboard" data-lang data-zh="管理员仪表板" id="dashboard-title">Administrator
+        Dashboard</h1>
+
+    <!-- Key Metrics Overview -->
+    <div class="dashboard-cards">
+        <div class="card">
+            <h3 data-en="Today's Reservations" data-lang data-zh="今日预订" id="reservations-title">Today's
+                Reservations</h3>
+            <p>35</p>
         </div>
 
-        <div>
-            <!-- Language Switcher -->
-            <div class="language-switch" onclick="switchLanguage()">Switch Language (切换语言)</div>
-            <!-- Logout Button -->
-            <button class="logout-button" onclick="logout()">Logout</button>
+        <div class="card">
+            <h3 data-en="Active Orders" data-lang data-zh="有效订单" id="orders-title">Active Orders</h3>
+            <p>12</p>
+        </div>
+
+        <div class="card">
+            <h3 data-en="Money Earned Today" data-lang data-zh="今日收入" id="earnings-title">Money Earned Today</h3>
+            <p>$2,340</p>
         </div>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="main-content" id="dashboard-content">
-        <h1 id="dashboard-title">Administrator Dashboard</h1>
+    <!-- Recent Reservations (Scrollable) -->
+    <div class="table-section">
+        <h2 data-en="Recent Reservations" data-lang data-zh="最近预订" id="recent-reservations-title">Recent
+            Reservations</h2>
 
-        <!-- Key Metrics Overview -->
-        <div class="dashboard-cards">
-            <div class="card">
-                <h3 id="reservations-title">Today's Reservations</h3>
-                <p>35</p>
-            </div>
-
-            <div class="card">
-                <h3 id="orders-title">Active Orders</h3>
-                <p>12</p>
-            </div>
-
-            <div class="card">
-                <h3 id="earnings-title">Money Earned Today</h3>
-                <p>$2,340</p>
-            </div>
+        <!-- Search Bar for Reservations -->
+        <input class="search-bar" data-en="Search reservations..." data-lang
+               data-zh="搜索预约..."
+               id="reservationSearch"
+               onkeyup="searchReservations()"
+               placeholder="Search reservations..."
+               type="text">
+        <div class="scrollable">
+            <table>
+                <thead>
+                <tr>
+                    <th data-en="Reservation ID" data-lang data-zh="预订ID">Reservation ID</th>
+                    <th data-en="Customer Name" data-lang data-zh="客户姓名">Customer Name</th>
+                    <th data-en="Reservation Time" data-lang data-zh="预订时间">Reservation Time</th>
+                    <th data-en="Party Size" data-lang data-zh="人数">Party Size</th>
+                    <th data-en="Table Number" data-lang data-zh="桌号">Table Number</th>
+                    <th data-en="Status" data-lang data-zh="状态">Status</th>
+                    <th data-en="Actions" data-lang data-zh="操作">Actions</th>
+                </tr>
+                </thead>
+                <tbody id="reservationsTableBody">
+                <tr>
+                    <td>1001</td>
+                    <td>Jane Doe</td>
+                    <td>7:00 PM</td>
+                    <td>1</td>
+                    <td>5</td>
+                    <td>
+                        <select>
+                            <option data-en="Pending" data-lang data-zh="待定">Pending</option>
+                            <option data-en="Confirmed" data-lang data-zh="已确认">Confirmed</option>
+                            <option data-en="Completed" data-lang data-zh="已完成">Completed</option>
+                            <option data-en="Cancelled" data-lang data-zh="已取消">Cancelled</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="action-button" data-en="View/Edit" data-lang data-zh="查看/编辑"
+                                onclick="viewOrEditReservation(1001)">View/Edit
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1002</td>
+                    <td>Michael Chan</td>
+                    <td>8:00 PM</td>
+                    <td>3</td>
+                    <td>8</td>
+                    <td>
+                        <select>
+                            <option data-en="Pending" data-lang data-zh="待定">Pending</option>
+                            <option data-en="Confirmed" data-lang data-zh="已确认">Confirmed</option>
+                            <option data-en="Completed" data-lang data-zh="已完成">Completed</option>
+                            <option data-en="Cancelled" data-lang data-zh="已取消">Cancelled</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="action-button" data-en="View/Edit" data-lang data-zh="查看/编辑"
+                                onclick="viewOrEditReservation(1002)">View/Edit
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1003</td>
+                    <td>John Doe</td>
+                    <td>6:30 PM</td>
+                    <td>2</td>
+                    <td>12</td>
+                    <td>
+                        <select>
+                            <option data-en="Pending" data-lang data-zh="待定">Pending</option>
+                            <option data-en="Confirmed" data-lang data-zh="已确认">Confirmed</option>
+                            <option data-en="Completed" data-lang data-zh="已完成">Completed</option>
+                            <option data-en="Cancelled" data-lang data-zh="已取消">Cancelled</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="action-button" data-en="View/Edit" data-lang data-zh="查看/编辑"
+                                onclick="viewOrEditReservation(1003)">View/Edit
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-
-        <!-- Recent Reservations (Scrollable) -->
-        <div class="table-section">
-            <h2 id="recent-reservations-title">Recent Reservations</h2>
-			<!-- Search Bar for Reservations -->
-            <input type="text" id="reservationSearch" class="search-bar" placeholder="Search reservations..." onkeyup="searchReservations()">
-            <div class="scrollable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Reservation ID</th>
-                            <th>Customer Name</th>
-                            <th>Reservation Time</th>
-                            <th>Table Number</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="reservationsTableBody">
-                        <tr>
-                            <td>1001</td>
-                            <td>Jane Doe</td>
-                            <td>7:00 PM</td>
-                            <td>5</td>
-                            <td>
-                                <select>
-                                    <option>Confirmed</option>
-                                    <option>Pending</option>
-                                    <option>Completed</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button class="action-button" onclick="viewOrEditReservation(1001)">View/Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>Michael Chan</td>
-                            <td>8:00 PM</td>
-                            <td>8</td>
-                            <td>
-                                <select>
-                                    <option>Pending</option>
-                                    <option>Confirmed</option>
-                                    <option>Completed</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button class="action-button" onclick="viewOrEditReservation(1002)">View/Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1003</td>
-                            <td>John Doe</td>
-                            <td>6:30 PM</td>
-                            <td>12</td>
-                            <td>
-                                <select>
-                                    <option>Completed</option>
-                                    <option>Confirmed</option>
-                                    <option>Pending</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button class="action-button" onclick="viewOrEditReservation(1003)">View/Edit</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Recent Orders (Scrollable) -->
-        <div class="table-section">
-            <h2 id="recent-orders-title">Recent Orders</h2>
-			<!-- Search Bar for Orders -->
-            <input type="text" id="orderSearch" class="search-bar" placeholder="Search orders..." onkeyup="searchOrders()">
-            <div class="scrollable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Customer Name</th>
-                            <th>Total Amount</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ordersTableBody">
-                        <tr>
-                            <td>2001</td>
-                            <td>John Smith</td>
-                            <td>$120</td>
-                            <td>
-                                <select>
-                                    <option>Completed</option>
-                                    <option>In Progress</option>
-                                    <option>Placed</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button class="action-button" onclick="viewOrEditOrder(2001)">View/Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2002</td>
-                            <td>Sarah Parker</td>
-                            <td>$85</td>
-                            <td>
-                                <select>
-                                    <option>In Progress</option>
-                                    <option>Completed</option>
-                                    <option>Placed</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button class="action-button" onclick="viewOrEditOrder(2002)">View/Edit</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
     </div>
 
-    <!-- JavaScript functions for actions -->
-    <script>
-        function viewOrEditReservation(id) {
-            window.location.href = './reservation_example.html';
-        }
+    <!-- Recent Orders (Scrollable) -->
+    <div class="table-section">
+        <h2 data-en="Recent Orders" data-lang data-zh="最近订单" id="recent-orders-title">Recent Orders</h2>
 
-        function viewOrEditOrder(id) {
-            window.location.href = './order_example.html';
-        }
+        <!-- Search Bar for Orders -->
+        <input class="search-bar" data-en="Search orders..." data-lang
+               data-zh="搜索订单..."
+               id="orderSearch"
+               onkeyup="searchOrders()"
+               placeholder="Search orders..."
+               type="text">
+        <div class="scrollable">
+            <table>
+                <thead>
+                <tr>
+                    <th data-en="Order ID" data-lang data-zh="订单ID">Order ID</th>
+                    <th data-en="Customer Name" data-lang data-zh="客户姓名">Customer Name</th>
+                    <th data-en="Total Amount" data-lang data-zh="总金额">Total Amount</th>
+                    <th data-en="Status" data-lang data-zh="状态">Status</th>
+                    <th data-en="Actions" data-lang data-zh="操作">Actions</th>
+                </tr>
+                </thead>
+                <tbody id="ordersTableBody">
+                <tr>
+                    <td>2001</td>
+                    <td>John Smith</td>
+                    <td>$120</td>
+                    <td>
+                        <select>
+                            <option data-en="Completed" data-lang data-zh="已完成">Completed</option>
+                            <option data-en="In Progress" data-lang data-zh="进行中">In Progress</option>
+                            <option data-en="Placed" data-lang data-zh="已下单">Placed</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="action-button" data-en="View/Edit" data-lang data-zh="查看/编辑"
+                                onclick="viewOrEditOrder(2001)">View/Edit
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2002</td>
+                    <td>Sarah Parker</td>
+                    <td>$85</td>
+                    <td>
+                        <select>
+                            <option data-en="Completed" data-lang data-zh="已完成">Completed</option>
+                            <option data-en="In Progress" data-lang data-zh="进行中">In Progress</option>
+                            <option data-en="Placed" data-lang data-zh="已下单">Placed</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="action-button" data-en="View/Edit" data-lang data-zh="查看/编辑"
+                                onclick="viewOrEditOrder(2002)">View/Edit
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        function logout() {
-            window.location.href = '../index.html';
-        }
+</div>
 
-        function switchLanguage() {
-            const elements = {
-                "dashboard-title": ["Merchant Dashboard", "商家仪表板"],
-                "reservations-title": ["Today's Reservations", "今日预订"],
-                "orders-title": ["Active Orders", "活跃订单"],
-                "earnings-title": ["Money Earned Today", "今日收入"],
-                "recent-reservations-title": ["Recent Reservations", "最近预订"],
-                "recent-orders-title": ["Recent Orders", "最近订单"]
-            };
-
-            for (const id in elements) {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.textContent = el.textContent === elements[id][0] ? elements[id][1] : elements[id][0];
-                }
-            }
-        }
-		
-		function searchReservations() {
-            const filter = document.getElementById('reservationSearch').value.toLowerCase();
-            const rows = document.querySelectorAll("#reservationsTableBody tr");
-            rows.forEach(row => {
-                const reservationId = row.cells[0].textContent.toLowerCase();
-                row.style.display = reservationId.includes(filter) ? '' : 'none';
-            });
-        }
-
-        function searchOrders() {
-            const filter = document.getElementById('orderSearch').value.toLowerCase();
-            const rows = document.querySelectorAll("#ordersTableBody tr");
-            rows.forEach(row => {
-                const orderId = row.cells[0].textContent.toLowerCase();
-                row.style.display = orderId.includes(filter) ? '' : 'none';
-            });
-        }
-    </script>
-
+<!-- JavaScript functions for actions -->
+<script src="../assets/js/common.js"></script>
+<script src="../assets/js/admin_merchant.js"></script>
 </body>
 </html>

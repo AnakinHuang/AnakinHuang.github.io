@@ -1,5 +1,5 @@
 <!-- 
-    CSC 461: Introduction to Databases - Project Milestone 1
+    CSC 461: Introduction to Databases - Project Milestone 3
 	Project Name: Coco Garden Manager – A Custom Restaurant Reservation \& Ordering System
     Team Members: Yuesong Huang, Xingzhi Ye
     Email: yhu116@ur.rochester.edu, xye8@u.rochester.edu
@@ -10,271 +10,121 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Menu - Coco Garden Manager</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        /* Sidebar styles */
-        .sidebar {
-            width: 250px;
-            background-color: #2c3e50;
-            color: white;
-            height: 100vh;
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding-bottom: 20px;
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            margin-top: 20px;
-            color: #ecf0f1;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            padding: 15px 20px;
-            text-align: left;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #ecf0f1;
-            display: block;
-        }
-
-        .sidebar ul li:hover {
-            background-color: #34495e;
-        }
-
-        /* Main dashboard content */
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-            width: calc(100% - 250px);
-            background-color: #ecf0f1;
-            min-height: 100vh;
-        }
-
-        .main-content h1 {
-            margin-top: 0;
-            font-size: 28px;
-        }
-
-        /* Menu Section */
-        .menu-table-section {
-            margin-top: 10px;
-            font-size: 16px;
-        }
-
-        .scrollable {
-            max-height: 300px;
-            overflow-y: scroll;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #bdc3c7;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #3498db;
-            color: white;
-        }
-
-        /* Read-only inputs for menu display */
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background-color: transparent;
-            font-size: 16px;
-            color: #2c3e50;
-        }
-
-        input[disabled], select[disabled] {
-            color: #2c3e50;
-        }
-
-        .logout-button {
-            padding: 10px 20px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 95%;
-            margin-top: 20px;
-			margin-left: 2.5%;
-			margin-bottom: 10%;
-        }
-
-        .logout-button:hover {
-            background-color: #c0392b;
-        }
-
-        .language-switch {
-            padding: 10px;
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            cursor: pointer;
-			width: 87%;
-			margin-left: 2.5%;
-            border-radius: 5px;
-        }
-
-        .language-switch:hover {
-            background-color: #2980b9;
-        }
-		
-		/* Search Bar */
-        .search-bar {
-            padding: 10px;
-            width: 300px;
-            margin-bottom: 0px;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-			background-color: white;
-        }
-    </style>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title data-en="View Menu - Coco Garden Manager" data-lang data-zh="查看菜单 - Coco Garden Manager">View Menu - Coco
+        Garden Manager</title>
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <link href="../assets/css/customer.css" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Sidebar Navigation -->
-    <div class="sidebar">
-        <div>
-            <h2>Coco Garden Manager</h2>
-            <ul>
-                <li><a href="./dashboard.html">Dashboard</a></li>
-                <li><a href="./reservations.html">Make/View Reservations</a></li>
-                <li><a href="./orders.html">View Orders</a></li>
-                <li><a href="./menu.html">View Menu</a></li>
-                <li><a href="./profile.html">Profile</a></li>
-                <li><a href="../support.html">Support</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <!-- Language Switcher -->
-            <div class="language-switch" onclick="switchLanguage()">Switch Language (切换语言)</div>
-            <!-- Logout Button -->
-            <button class="logout-button" onclick="logout()">Logout</button>
-        </div>
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+    <div>
+        <h2>Coco Garden Manager</h2>
+        <h3 data-en="Customer" data-lang data-zh="顾客">Customer</h3>
+        <ul>
+            <li><a data-en="Dashboard" data-lang data-zh="仪表盘" href="./dashboard.html">Dashboard</a></li>
+            <li><a data-en="Make/Edit Reservations" data-lang data-zh="进行/编辑预约" href="./reservations.html">Make/Edit
+                Reservations</a></li>
+            <li><a data-en="View/Edit Orders" data-lang data-zh="查看/编辑订单" href="./orders.html">View/Edit
+                Orders</a></li>
+            <li><a data-en="View Menu" data-lang data-zh="查看菜单" href="./menu.html">View Menu</a></li>
+            <li><a data-en="Profile" data-lang data-zh="个人信息" href="./profile.html">Profile</a></li>
+            <li><a data-en="Loyalty Program" data-lang data-zh="会员 & 忠诚度" href="./vip/loyalty.html">Loyalty
+                Program</a></li>
+            <li><a data-en="Support" data-lang data-zh="支持 & 帮助" href="../support.html">Support</a></li>
+        </ul>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="main-content">
-        <h1 id="menu-title">View Menu</h1>
+    <div>
+        <!-- Language Switcher -->
+        <button class="language-switch" data-en="Switch Language (切换语言)" data-lang
+                data-zh="切换语言 (Switch Language)" onclick="switchLanguage()">Switch Language (切换语言)
+        </button>
+        <!-- Logout Button -->
+        <button class="logout-button" data-en="Logout" data-lang data-zh="登出" onclick="logout()">Logout</button>
+    </div>
+</div>
 
-        <!-- Search Bar -->
-        <input type="text" id="menuSearch" class="search-bar" placeholder="Search menu..." onkeyup="searchMenu()">
+<!-- Main Content Area -->
+<div class="main-content">
+    <h1 data-en="View Menu" data-lang data-zh="查看菜单" id="menu-title">View Menu</h1>
 
-        <!-- Menu Table Section -->
-        <div class="menu-table-section">
-            <h2>Current Menu</h2>
-            <div class="scrollable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Dish Name</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody id="menuTableBody">
-                        <tr>
-                            <td><input type="text" value="Kung Pao Chicken" disabled></td>
-                            <td>
-                                <select disabled>
-                                    <option value="Main Course" selected>Main Course</option>
-                                    <option value="Appetizer">Appetizer</option>
-                                    <option value="Dessert">Dessert</option>
-                                    <option value="Drink">Drink</option>
-                                </select>
-                            </td>
-                            <td><input type="number" value="15" disabled></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" value="Spring Rolls" disabled></td>
-                            <td>
-                                <select disabled>
-                                    <option value="Appetizer" selected>Appetizer</option>
-                                    <option value="Main Course">Main Course</option>
-                                    <option value="Dessert">Dessert</option>
-                                    <option value="Drink">Drink</option>
-                                </select>
-                            </td>
-                            <td><input type="number" value="8" disabled></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" value="Sweet and Sour Pork" disabled></td>
-                            <td>
-                                <select disabled>
-                                    <option value="Main Course" selected>Main Course</option>
-                                    <option value="Appetizer">Appetizer</option>
-                                    <option value="Dessert">Dessert</option>
-                                    <option value="Drink">Drink</option>
-                                </select>
-                            </td>
-                            <td><input type="number" value="14" disabled></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <!-- Search Bar -->
+    <input class="search-bar" data-en="Search menu..." data-lang
+           data-zh="搜索菜单..."
+           id="menuSearch"
+           onkeyup="searchMenu()"
+           placeholder="Search menu..."
+           type="text">
+
+    <!-- Menu Table Section -->
+    <div class="table-section">
+        <h2 data-en="Current Menu" data-lang data-zh="当前菜单">Current Menu</h2>
+        <div class="scrollable">
+            <table>
+                <thead>
+                <tr>
+                    <th data-en="Dish Name" data-lang data-zh="菜品名称">Dish Name</th>
+                    <th data-en="Category" data-lang data-zh="分类">Category</th>
+                    <th data-en="Price" data-lang data-zh="价格">Price</th>
+                </tr>
+                </thead>
+                <tbody id="menuTableBody">
+                <tr>
+                    <td><input data-en="Kung Pao Chicken" data-lang data-zh="宫保鸡丁" disabled type="text"
+                               value="Kung Pao Chicken"></td>
+                    <td>
+                        <select disabled>
+                            <option data-en="Main Course" data-lang data-zh="主菜" selected value="Main Course">Main
+                                Course
+                            </option>
+                            <option data-en="Appetizer" data-lang data-zh="前菜" value="Appetizer">Appetizer</option>
+                            <option data-en="Dessert" data-lang data-zh="甜点" value="Dessert">Dessert</option>
+                            <option data-en="Drink" data-lang data-zh="饮品" value="Drink">Drink</option>
+                        </select>
+                    </td>
+                    <td><input data-en="$15" data-lang data-zh="¥15" disabled type="number" value="15"></td>
+                </tr>
+                <tr>
+                    <td><input data-en="Spring Rolls" data-lang data-zh="春卷" disabled type="text"
+                               value="Spring Rolls"></td>
+                    <td>
+                        <select disabled>
+                            <option data-en="Appetizer" data-lang data-zh="前菜" selected value="Appetizer">Appetizer
+                            </option>
+                            <option data-en="Main Course" data-lang data-zh="主菜" value="Main Course">Main Course
+                            </option>
+                            <option data-en="Dessert" data-lang data-zh="甜点" value="Dessert">Dessert</option>
+                            <option data-en="Drink" data-lang data-zh="饮品" value="Drink">Drink</option>
+                        </select>
+                    </td>
+                    <td><input data-en="$8" data-lang data-zh="¥8" disabled type="number" value="8"></td>
+                </tr>
+                <tr>
+                    <td><input data-en="Sweet and Sour Pork" data-lang data-zh="糖醋里脊" disabled type="text"
+                               value="Sweet and Sour Pork"></td>
+                    <td>
+                        <select disabled>
+                            <option data-en="Main Course" data-lang data-zh="主菜" selected value="Main Course">Main
+                                Course
+                            </option>
+                            <option data-en="Appetizer" data-lang data-zh="前菜" value="Appetizer">Appetizer</option>
+                            <option data-en="Dessert" data-lang data-zh="甜点" value="Dessert">Dessert</option>
+                            <option data-en="Drink" data-lang data-zh="饮品" value="Drink">Drink</option>
+                        </select>
+                    </td>
+                    <td><input data-en="$14" data-lang data-zh="¥14" disabled type="number" value="14"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
-    <!-- JavaScript functions -->
-    <script>
-        function logout() {
-            window.location.href = '../index.html';
-        }
-
-        function switchLanguage() {
-            const elements = {
-                "menu-title": ["View Menu", "查看菜单"]
-            };
-
-            for (const id in elements) {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.textContent = el.textContent === elements[id][0] ? elements[id][1] : elements[id][0];
-                }
-            }
-        }
-
-        function searchMenu() {
-            const filter = document.getElementById('menuSearch').value.toLowerCase();
-            const rows = document.querySelectorAll("#menuTableBody tr");
-            rows.forEach(row => {
-                const dishName = row.cells[0].querySelector('input').value.toLowerCase();
-                row.style.display = dishName.includes(filter) ? '' : 'none';
-            });
-        }
-    </script>
-
+<!-- JavaScript functions for actions -->
+<script src="../assets/js/common.js"></script>
+<script src="../assets/js/customer.js"></script>
 </body>
 </html>

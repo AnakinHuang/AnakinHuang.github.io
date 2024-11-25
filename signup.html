@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Sign-Up - Coco Garden Manager</title>
+  <link href="./assets/css/login_support.css" rel="stylesheet">
+</head>
+<body>
+<div class="login-container">
+  <div class="title">Coco Garden</div>
+  <div class="subtitle">Restaurant Manager System</div>
+
+  <h1>Sign-Up</h1>
+  <form action="./assets/php/signup.php" method="POST">
+    <label for="username">Username:</label>
+    <input id="username" name="username" placeholder="Choose a username" type="text" required>
+
+    <label for="phone-number">Phone Number:</label>
+    <input id="phone-number" name="phone_number" placeholder="Enter your phone number" type="tel" required>
+
+    <label for="email">Email:</label>
+    <input id="email" name="email" placeholder="Enter your email" type="email" required>
+
+    <label for="password">Password:</label>
+    <input id="password" name="password" placeholder="Choose a secure password" type="password" required>
+
+    <label for="confirm-password">Confirm Password:</label>
+    <input id="confirm-password" name="confirm_password" placeholder="Re-enter your password" type="password" required>
+
+    <!-- User Type -->
+    <label for="user-type">Choose User Type:</label>
+    <select id="user-type" name="user_type" required>
+      <option value="customer">Customer</option>
+      <option value="merchant">Merchant</option>
+      <option value="administrator">Administrator</option>
+    </select>
+
+    <!-- Submit Button -->
+    <button type="submit">Signup</button>
+  </form>
+
+  <div class="login-footer">
+    Already have an account? <a href="./index.html">Login</a>
+  </div>
+  <div class="login-footer">
+    Need help? <a href="./support.html">Contact Support</a>
+  </div>
+</div>
+<!-- JavaScript functions for actions -->
+<script src="./assets/js/login.js"></script>
+</body>
+</html>
