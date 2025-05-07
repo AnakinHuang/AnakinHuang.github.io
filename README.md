@@ -1,6 +1,6 @@
 # 📊 CSC 461: Introduction to Databases – Fall 2024 Project Milestone 1
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![License: BSD](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)
 
 ## 🚀 Overview
 
@@ -58,7 +58,7 @@ The `proposal.pdf` file outlines the project's objectives, proposed features, da
 
 ## 📄 License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the BSD 3-Clause License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
